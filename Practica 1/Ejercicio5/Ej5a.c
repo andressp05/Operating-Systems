@@ -19,10 +19,10 @@ int main (void){
             }
             pid = getpid();
             ppid = getppid();
-            printf("HIJO %d: PID PADRE: %d\t PID HIJO: %d\n", i, ppid, pid);
-        }else{
+            printf("PID PADRE: %d\t PID HIJO: %d\n", ppid, pid);
+		}else{
             pid = getpid();
-            printf ("PADRE %d: PID %d \n", i, pid);
+            printf ("PID PADRE %d \n", pid);
         }
     }
     wait(NULL);
