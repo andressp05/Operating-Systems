@@ -14,7 +14,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
+/**
+* @brief funcion que obtiene el programa a ejecutar dada su ruta
+* @param path cadena de caracteres que contiene la ruta del programa a ejecutar
+* @return char*: programa a ejecutar o null si la ruta es incorrecta
+*/
 char* getPrograma(char* path){
     char* prog;
     char* ret;
@@ -29,7 +33,14 @@ char* getPrograma(char* path){
     return prog;
 }
 
-
+/**
+* @brief funcion que crea un cierto número de procesos hijos y cada uno ejecuta
+* un programa de los pasados por argumento de entrada.
+* @param argv[] debe contener la ruta de los programas que ejecutarán los hijos
+* seguido de -l o -v para utilizar execl o execv o debe contener los programas
+* a ejecutar seguido de -lp o -vp para utilizar execlp o execvp
+* @return int: valor de exito o fracaso
+*/
 int main(int argc, char* argv[]){
 	int i;
 	int fpid;
