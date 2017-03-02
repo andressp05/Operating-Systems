@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>P1: Referencia del Archivo ejercicio8.c</title>
+<title>Practica 1: Referencia del Archivo ejercicio8.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,8 +23,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">P1
+   <div id="projectname">Practica 1
    </div>
+   <div id="projectbrief">Andres Salas Peña y Antonio Martín Masuda</div>
   </td>
  </tr>
  </tbody>
@@ -98,17 +99,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 Dependencia gráfica adjunta para ejercicio8.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="ejercicio8_8c__incl.png" border="0" usemap="#ejercicio8_8c" alt=""/></div>
-<map name="ejercicio8_8c" id="ejercicio8_8c">
-</map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funciones</h2></td></tr>
-<tr class="memitem:a26bcb1e99a7cfca86a1e63abed7c5bbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26bcb1e99a7cfca86a1e63abed7c5bbb"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>getPrograma</b> (char *path)</td></tr>
-<tr class="separator:a26bcb1e99a7cfca86a1e63abed7c5bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ddf1224851353fc92bfbff6f499fa97"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char *argv[])</td></tr>
+<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ejercicio8_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que crea un cierto número de procesos hijos y cada uno ejecuta un programa de los pasados por argumento de entrada. Se realiza una llamada a la funcion wait para que espere a la finalizacion de cada proceso hijo  <a href="#a0ddf1224851353fc92bfbff6f499fa97">Más...</a><br /></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
@@ -119,7 +115,44 @@ Antonio Martin <a href="#" onclick="location.href='mai'+'lto:'+'ant'+'on'+'io.'+
 <dl class="section note"><dt>Nota</dt><dd>Grupo 2202 </dd></dl>
 <dl class="section version"><dt>Versión</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Fecha</dt><dd>17/02/2017 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="a0ddf1224851353fc92bfbff6f499fa97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que crea un cierto número de procesos hijos y cada uno ejecuta un programa de los pasados por argumento de entrada. Se realiza una llamada a la funcion wait para que espere a la finalizacion de cada proceso hijo </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>contiene el número de parámetros totales pasados </td></tr>
+    <tr><td class="paramname">argv[]</td><td>debe contener la ruta de los programas que ejecutarán los hijos seguido de -l o -v para utilizar execl o execv o debe contener los programas a ejecutar seguido de -lp o -vp para utilizar execlp o execvp </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>int: valor de exito o fracaso </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generado por &#160;<a href="http://www.doxygen.org/index.html">

@@ -26,20 +26,20 @@ int main (void){
    int ppid;
    int pid;
    int i;
-   for (i=0; i < NUM_PROC; i++){
+   
+   for(i=0; i < NUM_PROC; i++){
       if ((fpid = fork()) < 0 ){
          printf("Error al emplear fork\n");
          exit(EXIT_FAILURE);
-      }
-       else if (fpid == 0){
+      } else if (fpid == 0){
          pid = getpid();   /* Uso de la funcion para obtener pid actual*/
          ppid = getppid(); /* Uso de la funcion para obtener pid Padre*/
          printf("PADRE %d del HIJO %d\n", ppid, pid);
-       }else{
+      } else{
          pid = getpid();/* Uso de la funcion para obtener pid actual*/
          printf("PADRE %d\n", pid);
-       }getchar();/* Usado para poder usar ps -auxf por terminal*/
+      }getchar();/* Usado para poder usar ps -auxf por terminal*/
    }
-exit(EXIT_SUCCESS);
+   exit(EXIT_SUCCESS);
 
 }

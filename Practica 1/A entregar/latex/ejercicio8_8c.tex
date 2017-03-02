@@ -11,8 +11,7 @@ Implementa el ejercicio 8 de ejecucion.
 {\ttfamily \#include $<$unistd.\+h$>$}\\*
 {\ttfamily \#include $<$sys/types.\+h$>$}\\*
 {\ttfamily \#include $<$sys/wait.\+h$>$}\\*
-Dependencia gráfica adjunta para ejercicio8.\+c\+:
-\nopagebreak
+Dependencia gráfica adjunta para ejercicio8.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -22,12 +21,8 @@ Dependencia gráfica adjunta para ejercicio8.\+c\+:
 \subsection*{Funciones}
 \begin{DoxyCompactItemize}
 \item 
-char $\ast$ {\bfseries get\+Programa} (char $\ast$path)\hypertarget{ejercicio8_8c_a26bcb1e99a7cfca86a1e63abed7c5bbb}{}\label{ejercicio8_8c_a26bcb1e99a7cfca86a1e63abed7c5bbb}
-
-\item 
-int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{ejercicio8_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio8_8c_a0ddf1224851353fc92bfbff6f499fa97}
-
-\end{DoxyCompactItemize}
+int \hyperlink{ejercicio8_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion que crea un cierto número de procesos hijos y cada uno ejecuta un programa de los pasados por argumento de entrada. Se realiza una llamada a la funcion wait para que espere a la finalizacion de cada proceso hijo \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Descripción detallada}
@@ -47,3 +42,28 @@ Grupo 2202
 \begin{DoxyDate}{Fecha}
 17/02/2017 
 \end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{ejercicio8.\+c@{ejercicio8.\+c}!main@{main}}
+\index{main@{main}!ejercicio8.\+c@{ejercicio8.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio8_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio8_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion que crea un cierto número de procesos hijos y cada uno ejecuta un programa de los pasados por argumento de entrada. Se realiza una llamada a la funcion wait para que espere a la finalizacion de cada proceso hijo 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & debe contener la ruta de los programas que ejecutarán los hijos seguido de -\/l o -\/v para utilizar execl o execv o debe contener los programas a ejecutar seguido de -\/lp o -\/vp para utilizar execlp o execvp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}

@@ -11,8 +11,7 @@ Implementa el ejercicio 9 de tuberias.
 {\ttfamily \#include $<$sys/types.\+h$>$}\\*
 {\ttfamily \#include $<$sys/wait.\+h$>$}\\*
 {\ttfamily \#include $<$unistd.\+h$>$}\\*
-Dependencia gráfica adjunta para ejercicio9.\+c\+:
-\nopagebreak
+Dependencia gráfica adjunta para ejercicio9.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,12 +22,16 @@ Dependencia gráfica adjunta para ejercicio9.\+c\+:
 \begin{DoxyCompactItemize}
 \item 
 \#define \hyperlink{ejercicio9_8c_acee2369f62e4a096d243dec3cd7d0b00}{N\+U\+M\+\_\+\+P\+R\+OC}~4
+\item 
+\#define \hyperlink{ejercicio9_8c_abc8a865f8ec2f1343ebeded8e37b47dc}{L\+E\+ER}~0
+\item 
+\#define \hyperlink{ejercicio9_8c_a1fab98d80466569d31ccf6a35b2c78a6}{E\+S\+C\+R\+I\+B\+IR}~1
 \end{DoxyCompactItemize}
 \subsection*{Funciones}
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{ejercicio9_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\begin{DoxyCompactList}\small\item\em funcion en la que los hijos hacen las operaciones y el padre mostrara el mensaje \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em funcion en la que los hijos hacen las operaciones y el padre mostrara el mensaje. Se realiza una llamada a la funcion wait para que el padre espere a cada hijo. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Descripción detallada}
@@ -51,7 +54,13 @@ Grupo 2202
 
 
 \subsection{Documentación de los \textquotesingle{}defines\textquotesingle{}}
-\index{ejercicio9.\+c@{ejercicio9.\+c}!N\+U\+M\+\_\+\+P\+R\+OC@{N\+U\+M\+\_\+\+P\+R\+OC}}
+\index{ejercicio9.\+c@{ejercicio9.\+c}!E\+S\+C\+R\+I\+B\+IR@{E\+S\+C\+R\+I\+B\+IR}}
+\index{E\+S\+C\+R\+I\+B\+IR@{E\+S\+C\+R\+I\+B\+IR}!ejercicio9.\+c@{ejercicio9.\+c}}
+\subsubsection[{\texorpdfstring{E\+S\+C\+R\+I\+B\+IR}{ESCRIBIR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+S\+C\+R\+I\+B\+IR~1}\hypertarget{ejercicio9_8c_a1fab98d80466569d31ccf6a35b2c78a6}{}\label{ejercicio9_8c_a1fab98d80466569d31ccf6a35b2c78a6}
+Macro escribir \index{ejercicio9.\+c@{ejercicio9.\+c}!L\+E\+ER@{L\+E\+ER}}
+\index{L\+E\+ER@{L\+E\+ER}!ejercicio9.\+c@{ejercicio9.\+c}}
+\subsubsection[{\texorpdfstring{L\+E\+ER}{LEER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+E\+ER~0}\hypertarget{ejercicio9_8c_abc8a865f8ec2f1343ebeded8e37b47dc}{}\label{ejercicio9_8c_abc8a865f8ec2f1343ebeded8e37b47dc}
+Macro lectura \index{ejercicio9.\+c@{ejercicio9.\+c}!N\+U\+M\+\_\+\+P\+R\+OC@{N\+U\+M\+\_\+\+P\+R\+OC}}
 \index{N\+U\+M\+\_\+\+P\+R\+OC@{N\+U\+M\+\_\+\+P\+R\+OC}!ejercicio9.\+c@{ejercicio9.\+c}}
 \subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+P\+R\+OC}{NUM_PROC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+P\+R\+OC~4}\hypertarget{ejercicio9_8c_acee2369f62e4a096d243dec3cd7d0b00}{}\label{ejercicio9_8c_acee2369f62e4a096d243dec3cd7d0b00}
 Numero de hijos a crear 
@@ -67,7 +76,7 @@ Numero de hijos a crear
 )}\hypertarget{ejercicio9_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio9_8c_a0ddf1224851353fc92bfbff6f499fa97}
 
 
-funcion en la que los hijos hacen las operaciones y el padre mostrara el mensaje 
+funcion en la que los hijos hacen las operaciones y el padre mostrara el mensaje. Se realiza una llamada a la funcion wait para que el padre espere a cada hijo. 
 
 \begin{DoxyReturn}{Devuelve}
 int\+: valor de exito o fracaso 

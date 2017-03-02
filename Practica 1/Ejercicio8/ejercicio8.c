@@ -18,6 +18,7 @@
 * @brief funcion que crea un cierto número de procesos hijos y cada uno ejecuta
 * un programa de los pasados por argumento de entrada. Se realiza una llamada a
 * la funcion wait para que espere a la finalizacion de cada proceso hijo
+* @param argc contiene el número de parámetros totales pasados
 * @param argv[] debe contener la ruta de los programas que ejecutarán los hijos
 * seguido de -l o -v para utilizar execl o execv o debe contener los programas
 * a ejecutar seguido de -lp o -vp para utilizar execlp o execvp
@@ -37,17 +38,18 @@ int main(int argc, char* argv[]){
             printf("Error al emplear fork\n");
             exit(EXIT_FAILURE);
         }
-        //llamada a la funcion wait para que el padre espere a todos sus hijos
+        
+        /* llamada a la funcion wait para que el padre espere a todos sus hijos */
         wait(NULL);
         
 		if (fpid == 0){
             if(strcmp("-l", argv[argc-1]) == 0){
-                //llamada a execl con la ruta del comando a ejecutar en argv[i]
+                /* llamada a execl con la ruta del comando a ejecutar en argv[i] */
             	execl(argv[i], argv[i], NULL);
             	printf("Programa %d no ha funcionado\n", i);
             	return EXIT_FAILURE;
             } else if(strcmp("-lp", argv[argc-1]) == 0){
-                //llamada a execlp con el comando a ejecutar en argv[i]
+                /* llamada a execlp con el comando a ejecutar en argv[i] */
             	execlp(argv[i], argv[i], NULL);
             	printf("Programa %d no ha funcionado\n", i);
             	return EXIT_FAILURE;
@@ -55,7 +57,7 @@ int main(int argc, char* argv[]){
                 char* aux[2];
                 aux[0] = argv[i];
                 aux[1] = NULL;
-                //llamada a execv con la ruta del comando a ejecutar en argv[i] y en aux[0]
+                /* llamada a execv con la ruta del comando a ejecutar en argv[i] y en aux[0] */
             	execv(argv[i], aux);
             	printf("Programa %d no ha funcionado\n", i);
             	return EXIT_FAILURE;
@@ -63,7 +65,7 @@ int main(int argc, char* argv[]){
                 char* aux[2];
             	aux[0] = argv[i];
             	aux[1] = NULL;
-            	//llamada a execvp con el comando a ejecutar en argv[i] y en aux[0]
+            	/*llamada a execvp con el comando a ejecutar en argv[i] y en aux[0]*/
             	execvp(argv[i], aux);
             	printf("Programa %d no ha funcionado\n", i);
             	return EXIT_FAILURE;
