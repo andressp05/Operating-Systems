@@ -35,11 +35,12 @@ int main (void){
         fgets(cad, CADENA, stdin);
         printf("\n%s\n", cad);
         free(cad);
-    }
-    else{
+        exit(EXIT_SUCCESS);
+    } else{
         wait(NULL);
         free(cad);
     }
+    exit(EXIT_SUCCESS);
 } 
 
 
