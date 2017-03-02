@@ -25,12 +25,13 @@ int main (void){
     int pid;
     int ppid;
     int i;
-    for (i=0; i < NUM_PROC; i++){
+    
+    for(i=0; i < NUM_PROC; i++){
         if (fpid == 0){
             pid = getpid();
             ppid = getppid();
             printf("HIJO %d: PID PADRE: %d\t PID HIJO: %d\n", i, ppid, pid);
-        }else{
+        } else{
             if ((fpid=fork()) < 0){
                 printf("Error al emplear fork\n");
                 exit(EXIT_FAILURE);
