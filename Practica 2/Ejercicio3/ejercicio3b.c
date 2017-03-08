@@ -26,17 +26,16 @@
 * @param argv[] contiene los parámetros pasados por el usuario
 * @return int: valor de exito o fracaso
 */
-void *is_prime(int np){
+void* is_prime(void* arg){
     int* array;
-    int i, nprimos = 0, n = 2;
+    int i, nprimos = 0, n = 2, np = *((int*) arg);
 
     array = (int*) malloc (sizeof(int)*np);
     if(!array){
-        return ;
+        return NULL;
     }
-    printf("mola");
-    fflush(stdout);
-    while(nprimos < np){
+
+    while(nprimos <= np){
         if(n == 2){
             array[nprimos] = n;
             n++;
@@ -49,7 +48,7 @@ void *is_prime(int np){
             continue;
         }
 
-        for(i=3;i*i<n;i+=2){
+        for(i=3;i*i<=n;i+=2){
             if(n%i != 0)
                 continue;
             break;
@@ -62,10 +61,7 @@ void *is_prime(int np){
         n++;
     }
 
-    free(array);
-    printf("mazo");
-    fflush(stdout);
-    pthread_exit(NULL);
+    pthread_exit(0);
 }
 
 /**
@@ -76,19 +72,26 @@ void *is_prime(int np){
 */
 int main (int argc, char *argv[]){
     pthread_t h;
-    int i;
+    int i, n, total;
+    time_t ini, fin;
 
-    if(argc < 1 || argc > 2){
+    if(argc != 2){
         printf("Se debe pasar un solo parámetro\n");
         return EXIT_FAILURE;
     }
-    printf("h");
-    fflush(stdout);   
-    for(i=0;i<NUM_PROC;i++){
-        pthread_create(&h,NULL, is_prime(atoi((argv[1]))),(void *) i);
-        printf("si");
-        fflush(stdout);
+    
+    n = atoi(argv[1]);
+    ini = time(NULL);
+    
+    for(i = 0; i < NUM_PROC; i++){
+        pthread_create(&h, NULL, is_prime, (void*) &n);
         pthread_join(h,NULL);
+        pthread_cancel(h);
     }
+    
+    fin = time(NULL);
+    total = fin - ini;
+    printf("Tiempo de ejecucuión: %d\n", total);
+    
     exit(EXIT_SUCCESS);
 }
