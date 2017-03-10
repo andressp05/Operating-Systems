@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/time.h>
 #include <unistd.h>
-#include <time.h>
 
 /*!Numero de procesos del bucle for dado*/
 #define NUM_PROC 100
@@ -71,14 +71,16 @@ int* is_prime(int np){
 int main (int argc, char *argv[]){
     int fpid = 1;
     int i, total;
-    time_t ini, fin;
+    struct timeval ti, tf;
+    double tiempo;
+
 
     if(argc != 2){
         printf("Se debe pasar un solo parámetro\n");
         return EXIT_FAILURE;
     }
     
-    ini = time(NULL);
+    gettimeofday(&ti, NULL);
 
     for(i = 0; i < NUM_PROC; i++){
         if (fpid != 0){
@@ -93,9 +95,6 @@ int main (int argc, char *argv[]){
                     printf("Error al reservar memoria\n");
                     exit(EXIT_FAILURE);
                 }
-                /*for(; j < 100*(i+1); j++)
-                    printf("%d ", array[j]);
-                printf("\n");*/
                 free(array);
                 exit(EXIT_SUCCESS);
             }            
@@ -103,9 +102,8 @@ int main (int argc, char *argv[]){
         wait(NULL);
     }
     
-    fin = time(NULL);
-    total = fin - ini;
-    printf("Tiempo de ejecución: %d\n", total);
-    
+    gettimeofday(&tf, NULL);
+    tiempo = (tf.tv_sec - ti.tv_sec) + (tf.tv_usec - ti.tv_usec)/1000000.0;
+    printf("Tiempo de ejecucion: %gs\n", tiempo);
     exit(EXIT_SUCCESS);
 } 
