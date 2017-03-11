@@ -9,12 +9,12 @@
  */
 
 
-#include <time.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 /*!Numero de procesos del bucle for dado*/
@@ -72,16 +72,17 @@ void* is_prime(void* arg){
 */
 int main (int argc, char *argv[]){
     pthread_t h;
-    int i, n, total;
-    time_t ini, fin;
+    int i, n;
+    struct timeval ti, tf;
+    double tiempo;
 
     if(argc != 2){
         printf("Se debe pasar un solo parámetro\n");
         return EXIT_FAILURE;
     }
     
+    gettimeofday(&ti, NULL);
     n = atoi(argv[1]);
-    ini = time(NULL);
     
     for(i = 0; i < NUM_PROC; i++){
         pthread_create(&h, NULL, is_prime, (void*) &n);
@@ -89,9 +90,9 @@ int main (int argc, char *argv[]){
         pthread_cancel(h);
     }
     
-    fin = time(NULL);
-    total = fin - ini;
-    printf("Tiempo de ejecucuión: %d\n", total);
-    
+    gettimeofday(&tf, NULL);
+    tiempo = (tf.tv_sec - ti.tv_sec) + (tf.tv_usec - ti.tv_usec)/1000000.0;
+    printf("Tiempo de ejecucion: %gs\n", tiempo);
+
     exit(EXIT_SUCCESS);
 }

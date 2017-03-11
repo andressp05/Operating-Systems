@@ -70,7 +70,7 @@ int* is_prime(int np){
 */
 int main (int argc, char *argv[]){
     int fpid = 1;
-    int i, total;
+    int i;
     struct timeval ti, tf;
     double tiempo;
 
@@ -105,5 +105,6 @@ int main (int argc, char *argv[]){
     gettimeofday(&tf, NULL);
     tiempo = (tf.tv_sec - ti.tv_sec) + (tf.tv_usec - ti.tv_usec)/1000000.0;
     printf("Tiempo de ejecucion: %gs\n", tiempo);
+    
     exit(EXIT_SUCCESS);
 } 
