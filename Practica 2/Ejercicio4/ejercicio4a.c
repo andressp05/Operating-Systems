@@ -14,22 +14,58 @@
 #include <pthread.h>
 #include <unistd.h>
 
-/*tamaño maximo a leer por pantalla*/
 #define MAXTAM 256
 
 /**
- * @brief Estructura params
+ * @brief Estructura params que contiene los parametros necesarios para que el
+ * hilo multiplique un matriz por un numero entero
  */
+
 typedef struct _params{
-    int dim;/*!<Dimension de la matriz*/
-    int multiplicador;/*!<escalar*/
-    int* matriz;/*!<Matriz*/
-    int nhilo;/*!<numero de hilo*/
+    int dim;
+    int multiplicador;
+    int* matriz;
+    int nhilo;
 }params;
 
 /**
+* @brief funcion que comprueba si la matriz introducida por el usuario
+* es valida
+* @param aux cadena de caracteres que ha introducido el usuario
+* @param dim dimension de la matriz
+* @param matriz array donde se almacenaran los enteros introducidos por
+* el usuario si la matriz es valida
+* @return int: EXIT_SUCCESS en caso de que la matriz es valida o
+* EXIT_FAILURE en caso de que no se hayan introducido suficientes numeros
+* o haya introducido caracteres no numericos
+*/
+int comprueba_matriz(char* aux, int dim, int* matriz){
+    int i, j = 0;
+    char* delim = " ";
+    char* token;
+    
+    while(aux[j] != 0 && aux[j] != 10){
+        if((aux[j] < '0' || aux[j] > '9') && aux[j] != ' ' && aux[j] != '-' && aux[j] != '+'){
+            return EXIT_FAILURE;
+        }
+        j++;
+    }
+    
+    token = strtok(aux, delim);
+    for(i = 0; i < dim*dim && token != NULL; i++){
+        matriz[i] = atoi(token);
+        token = strtok(NULL, delim);
+    }
+    
+    if(i < dim*dim){
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
+/**
 * @brief funcion que multiplica una matriz por un escalar
-* @param arg se le pasará una estructura de hilos
+* @param arg se le pasara la estructura de hilos
 * @return void*: finaliza la funcion con la salida del hilo
 */
 void* multiplicacion(void* arg){
@@ -52,21 +88,19 @@ void* multiplicacion(void* arg){
             printf(" %d", mult*matriz[i*dim+j]);
         }
         printf("\n");
-        usleep(200);/*Se duerme para percibir el paralelismo*/
+        fflush(stdout);
+        usleep(20000);
     }
-    
-    pthread_exit(NULL);
+    return NULL;    
 }
 
 /**
 * @brief funcion que implementa la multiplicacion de matriz por escalar
 * mediante dos hilos 
-* @param np numero de primos a calcular 
-* @param argv[] contiene los parámetros pasados por el usuario
 * @return int: valor de exito o fracaso
 */
-int main(int argc, char* argv[]){
-    int i;
+int main(){
+    int ret;
     int dim;
     int mult1, mult2;
     int* matriz1;
@@ -74,25 +108,37 @@ int main(int argc, char* argv[]){
     params* hilo1;
     params* hilo2;
     char aux[MAXTAM];
-    char* delim = " ";
-    char* token;
     pthread_t th1, th2;
     
-    /*Introduccion de parametros por pantalla*/
     printf("Introduzca dimension de la matriz cuadrada:\n");
-    scanf("%d", &dim);
+    fgets(aux, MAXTAM, stdin);
+    dim = atoi(aux);
     
-    /*Condicion de error pedida*/
     while(dim <= 0 || dim > 4){
         printf("La dimensión ha de ser un entero positivo menor que 4:\n");
-        scanf("%d", &dim);
+        fgets(aux, MAXTAM, stdin);
+        dim = atoi(aux);
     }
     
     printf("Introduzca multiplicador 1:\n");
-    scanf("%d", &mult1);
+    fgets(aux, MAXTAM, stdin);
+    mult1 = atoi(aux);
+    
+    while(mult1 == 0){
+        printf("No es un multiplicador válido. Vuelva a intentarlo:\n");
+        fgets(aux, MAXTAM, stdin);
+        mult1 = atoi(aux);
+    }
     
     printf("Introduzca multiplicador 2:\n");
-    scanf("%d", &mult2);
+    fgets(aux, MAXTAM, stdin);
+    mult2 = atoi(aux);
+    
+    while(mult2 == 0){
+        printf("No es un multiplicador válido. Vuelva a intentarlo:\n");
+        fgets(aux, MAXTAM, stdin);
+        mult2 = atoi(aux);
+    }
     
     matriz1 = (int*) malloc(sizeof(int)*(dim*dim));
     if(matriz1 == NULL){
@@ -126,50 +172,22 @@ int main(int argc, char* argv[]){
 
     printf("Introduzca matriz 1:\n");
     fgets(aux, MAXTAM, stdin);
-    fgets(aux, MAXTAM, stdin);
-    
-    token = strtok(aux, delim);
-    for(i = 0; i < dim*dim && token != NULL; i++){
-        matriz1[i] = atoi(token);
-        token = strtok(NULL, delim);
-    }
-    
-    while(i < dim*dim){
-        printf("No se han introducido suficientes números para la primera matriz. ");
-        printf("Vuelva a intentarlo:\n");
+    ret = comprueba_matriz(aux, dim, matriz1);
+    while(ret == EXIT_FAILURE){
+        printf("La matriz introducida no es válida. Compruebe que ha introducido %d números enteros:\n", dim*dim);
         fgets(aux, MAXTAM, stdin);
-        
-        token = strtok(aux, delim);
-        
-        for(i = 0; i < dim*dim && token != NULL; i++){
-            matriz1[i] = atoi(token);
-            token = strtok(NULL, delim);
-        }
+        ret = comprueba_matriz(aux, dim, matriz1);
     }
     
     printf("Introduzca matriz 2:\n");
     fgets(aux, MAXTAM, stdin);
-    
-    token = strtok(aux, delim);
-    for(i = 0; i < dim*dim && token != NULL; i++){
-        matriz2[i] = atoi(token);
-        token = strtok(NULL, delim);
-    }
-    
-    while(i < dim*dim){
-        printf("No se han introducido suficientes números para la segunda matriz. ");
-        printf("Vuelva a intentarlo:\n");
+    ret = comprueba_matriz(aux, dim, matriz2);
+    while(ret == EXIT_FAILURE){
+        printf("La matriz introducida no es válida. Compruebe que ha introducido %d números enteros:\n", dim*dim);
         fgets(aux, MAXTAM, stdin);
-        
-        token = strtok(aux, delim);
-        
-        for(i = 0; i < dim*dim && token != NULL; i++){
-            matriz2[i] = atoi(token);
-            token = strtok(NULL, delim);
-        }
+        ret = comprueba_matriz(aux, dim, matriz2);
     }
     
-    /*Asignacion a los hilos de los valores pedidos por pantalla*/
     hilo1->dim = dim;
     hilo1->multiplicador = mult1;
     hilo1->matriz = matriz1;
@@ -180,15 +198,28 @@ int main(int argc, char* argv[]){
     hilo2->matriz = matriz2;
     hilo2->nhilo = 2;
     
-    /*Trabajo con hilos*/
-    pthread_create(&th1, NULL, multiplicacion, (void*) hilo1);
-    pthread_create(&th2, NULL, multiplicacion, (void*) hilo2);
+    ret = pthread_create(&th1, NULL, multiplicacion, (void*) hilo1);
+    if(ret) {
+		printf("Error al crear el primer hilo.\n");
+		return EXIT_FAILURE;
+	}
+	
+    ret = pthread_create(&th2, NULL, multiplicacion, (void*) hilo2);
+    if(ret) {
+		printf("Error al crear el segundo hilo.\n");
+		return EXIT_FAILURE;
+	}
     
     pthread_join(th1, NULL);
     pthread_join(th2, NULL);
     
     pthread_cancel(th1);
     pthread_cancel(th2);
+    
+    free(hilo1);
+    free(hilo2);
+    free(matriz1);
+    free(matriz2);
     
     exit(EXIT_SUCCESS);
 }
