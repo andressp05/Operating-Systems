@@ -61,7 +61,7 @@ void* is_prime(void* arg){
         n++;
     }
 
-    pthread_exit(0);
+    return NULL;
 }
 
 /**
@@ -72,7 +72,9 @@ void* is_prime(void* arg){
 */
 int main (int argc, char *argv[]){
     pthread_t h;
-    int i, n;
+    int i;
+    int n;
+    int ret;
     /*variables necesarias calculo tiempo*/
     struct timeval ti, tf;
     double tiempo;
@@ -87,7 +89,11 @@ int main (int argc, char *argv[]){
     
     /*creacion de hilos*/
     for(i = 0; i < NUM_HIL; i++){
-        pthread_create(&h, NULL, is_prime, (void*) &n);
+        ret = pthread_create(&h, NULL, is_prime, (void*) &n);
+        if(ret){
+            printf("Error al crear el hilo %d\n", i+1);
+            exit(EXIT_FAILURE);
+        }
         pthread_join(h,NULL);
         pthread_cancel(h);
     }
