@@ -113,6 +113,7 @@ int main (){
                     exit(EXIT_FAILURE);
                 }
                 sigsuspend(&mask);
+                sleep(5);
                 fp = fopen("cadena.txt", "r");
                 if(fp == NULL){
                     printf("Error al abrir el fichero.\n");
