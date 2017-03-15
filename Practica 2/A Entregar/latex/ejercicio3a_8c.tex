@@ -1,0 +1,101 @@
+\hypertarget{ejercicio3a_8c}{}\section{Referencia del Archivo ejercicio3a.\+c}
+\label{ejercicio3a_8c}\index{ejercicio3a.\+c@{ejercicio3a.\+c}}
+
+
+Implementa el ejercicio 3a de procesos con un solo padre.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+Dependencia gráfica adjunta para ejercicio3a.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ejercicio3a_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ejercicio3a_8c_acee2369f62e4a096d243dec3cd7d0b00}{N\+U\+M\+\_\+\+P\+R\+OC}~100
+\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \hyperlink{ejercicio3a_8c_af7397f188966cc18c1be25c8dad77bcb}{is\+\_\+prime} (int np)
+\begin{DoxyCompactList}\small\item\em funcion que lista los np primeros primos \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio3a_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion de procesos con un solo padre \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio 3a de procesos con un solo padre. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+03/03/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de los \textquotesingle{}defines\textquotesingle{}}
+\index{ejercicio3a.\+c@{ejercicio3a.\+c}!N\+U\+M\+\_\+\+P\+R\+OC@{N\+U\+M\+\_\+\+P\+R\+OC}}
+\index{N\+U\+M\+\_\+\+P\+R\+OC@{N\+U\+M\+\_\+\+P\+R\+OC}!ejercicio3a.\+c@{ejercicio3a.\+c}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+P\+R\+OC}{NUM_PROC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+P\+R\+OC~100}\hypertarget{ejercicio3a_8c_acee2369f62e4a096d243dec3cd7d0b00}{}\label{ejercicio3a_8c_acee2369f62e4a096d243dec3cd7d0b00}
+Numero de procesos del bucle for 
+
+\subsection{Documentación de las funciones}
+\index{ejercicio3a.\+c@{ejercicio3a.\+c}!is\+\_\+prime@{is\+\_\+prime}}
+\index{is\+\_\+prime@{is\+\_\+prime}!ejercicio3a.\+c@{ejercicio3a.\+c}}
+\subsubsection[{\texorpdfstring{is\+\_\+prime(int np)}{is_prime(int np)}}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ is\+\_\+prime (
+\begin{DoxyParamCaption}
+\item[{int}]{np}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio3a_8c_af7397f188966cc18c1be25c8dad77bcb}{}\label{ejercicio3a_8c_af7397f188966cc18c1be25c8dad77bcb}
+
+
+funcion que lista los np primeros primos 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em np} & numero de primos a calcular \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}
+\index{ejercicio3a.\+c@{ejercicio3a.\+c}!main@{main}}
+\index{main@{main}!ejercicio3a.\+c@{ejercicio3a.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio3a_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio3a_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion de procesos con un solo padre 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}

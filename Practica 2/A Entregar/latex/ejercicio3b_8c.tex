@@ -1,0 +1,102 @@
+\hypertarget{ejercicio3b_8c}{}\section{Referencia del Archivo ejercicio3b.\+c}
+\label{ejercicio3b_8c}\index{ejercicio3b.\+c@{ejercicio3b.\+c}}
+
+
+Implementa el ejercicio 3b de hilos de un proceso.  
+
+
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+Dependencia gráfica adjunta para ejercicio3b.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ejercicio3b_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ejercicio3b_8c_a1541b4eafb644db053370db475c0ea71}{N\+U\+M\+\_\+\+H\+IL}~100
+\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{ejercicio3b_8c_a3c96e5c70f817235701b2e9543215a1d}{is\+\_\+prime} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em funcion que lista los np primeros primos \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio3b_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion de hilos de un proceso \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio 3b de hilos de un proceso. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+03/03/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de los \textquotesingle{}defines\textquotesingle{}}
+\index{ejercicio3b.\+c@{ejercicio3b.\+c}!N\+U\+M\+\_\+\+H\+IL@{N\+U\+M\+\_\+\+H\+IL}}
+\index{N\+U\+M\+\_\+\+H\+IL@{N\+U\+M\+\_\+\+H\+IL}!ejercicio3b.\+c@{ejercicio3b.\+c}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+H\+IL}{NUM_HIL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+H\+IL~100}\hypertarget{ejercicio3b_8c_a1541b4eafb644db053370db475c0ea71}{}\label{ejercicio3b_8c_a1541b4eafb644db053370db475c0ea71}
+Numero de hilos del bucle for 
+
+\subsection{Documentación de las funciones}
+\index{ejercicio3b.\+c@{ejercicio3b.\+c}!is\+\_\+prime@{is\+\_\+prime}}
+\index{is\+\_\+prime@{is\+\_\+prime}!ejercicio3b.\+c@{ejercicio3b.\+c}}
+\subsubsection[{\texorpdfstring{is\+\_\+prime(void $\ast$arg)}{is_prime(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ is\+\_\+prime (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio3b_8c_a3c96e5c70f817235701b2e9543215a1d}{}\label{ejercicio3b_8c_a3c96e5c70f817235701b2e9543215a1d}
+
+
+funcion que lista los np primeros primos 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em arg} & contiene los parámetros pasados por el hilo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+void$\ast$\+: fin del hilo 
+\end{DoxyReturn}
+\index{ejercicio3b.\+c@{ejercicio3b.\+c}!main@{main}}
+\index{main@{main}!ejercicio3b.\+c@{ejercicio3b.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio3b_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio3b_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion de hilos de un proceso 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}
