@@ -70,7 +70,7 @@ int* is_prime(int np){
 */
 int main (int argc, char *argv[]){
     int fpid = 1;
-    int i;
+    int i, n;
     /*variables necesarias calculo tiempo*/
     struct timeval ti, tf;
     double tiempo;
@@ -81,6 +81,13 @@ int main (int argc, char *argv[]){
         return EXIT_FAILURE;
     }
     
+    n = atoi(argv[1]);
+    /*Comprobamos error de no pasar un numero*/
+    if(n <= 0){
+        printf("No valido");
+        exit(EXIT_FAILURE);
+    }
+
     gettimeofday(&ti, NULL);
 
     /*creacion de procesos*/
@@ -92,7 +99,7 @@ int main (int argc, char *argv[]){
             }
             if(fpid == 0){
                 int* array;
-                array = is_prime(atoi((argv[1])));
+                array = is_prime(n);
                 if(array == NULL){
                     printf("Error al reservar memoria\n");
                     exit(EXIT_FAILURE);

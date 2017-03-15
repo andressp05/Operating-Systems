@@ -84,9 +84,15 @@ int main (int argc, char *argv[]){
         return EXIT_FAILURE;
     }
     
-    gettimeofday(&ti, NULL);
     n = atoi(argv[1]);
-    
+    /*Comprobamos error de no pasar un numero*/
+    if(n <= 0){
+    	printf("No valido");
+    	exit(EXIT_FAILURE);
+    }
+
+    gettimeofday(&ti, NULL);
+
     /*creacion de hilos*/
     for(i = 0; i < NUM_HIL; i++){
         ret = pthread_create(&h, NULL, is_prime, (void*) &n);
