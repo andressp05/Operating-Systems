@@ -20,8 +20,7 @@
 
 /**
 * @brief funcion que lista los np primeros primos 
-* @param np numero de primos a calcular 
-* @param argv[] contiene los parámetros pasados por el usuario
+* @param np numero de primos a calcular
 * @return int: valor de exito o fracaso
 */
 int* is_prime(int np){

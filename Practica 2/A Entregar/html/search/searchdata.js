@@ -1,11 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "_ceimnp",
+  0: "_cdefhimnopv",
   1: "_",
   2: "e",
   3: "cim",
-  4: "p",
-  5: "n"
+  4: "cdfhmnopv",
+  5: "p",
+  6: "mn"
 };
 
 var indexSectionNames =
@@ -14,8 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "typedefs",
-  5: "defines"
+  4: "variables",
+  5: "typedefs",
+  6: "defines"
 };
 
 var indexSectionLabels =
@@ -24,7 +26,8 @@ var indexSectionLabels =
   1: "Clases",
   2: "Archivos",
   3: "Funciones",
-  4: "&apos;typedefs&apos;",
-  5: "&apos;defines&apos;"
+  4: "Variables",
+  5: "&apos;typedefs&apos;",
+  6: "&apos;defines&apos;"
 };
 

@@ -1,0 +1,123 @@
+\hypertarget{ejercicio8b_8c}{}\section{Referencia del Archivo ejercicio8b.\+c}
+\label{ejercicio8b_8c}\index{ejercicio8b.\+c@{ejercicio8b.\+c}}
+
+
+Implementa el ejercicio 8 de comunicacion de procesos con variables globales.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+Dependencia gráfica adjunta para ejercicio8b.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ejercicio8b_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ejercicio8b_8c_afc491f44f9a3771e97dc0256075f0f52}{manejador\+\_\+\+S\+I\+G\+T\+E\+RM} (int sig)
+\begin{DoxyCompactList}\small\item\em funcion del manejador de S\+I\+G\+T\+E\+RM \end{DoxyCompactList}\item 
+void \hyperlink{ejercicio8b_8c_af67f7ad6bdff3c40a6b1d97ae573fa4c}{manejador\+\_\+\+S\+I\+G\+U\+S\+R1} (int sig)
+\begin{DoxyCompactList}\small\item\em funcion del manejador de S\+I\+G\+U\+S\+R1 \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio8b_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion de comunicacion de procesos \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ejercicio8b_8c_af500917c052066b40cf47f96b43c607b}{pid} = 0\hypertarget{ejercicio8b_8c_af500917c052066b40cf47f96b43c607b}{}\label{ejercicio8b_8c_af500917c052066b40cf47f96b43c607b}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la variable global pid. \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio8b_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid} = 0\hypertarget{ejercicio8b_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{}\label{ejercicio8b_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la variable global hpid. \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio8b_8c_a53c9354fdf7ea02f79040ba6430ecb7f}{pid\+\_\+raiz} = 0\hypertarget{ejercicio8b_8c_a53c9354fdf7ea02f79040ba6430ecb7f}{}\label{ejercicio8b_8c_a53c9354fdf7ea02f79040ba6430ecb7f}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la variable global pid\+\_\+raiz. \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio8b_8c_a961800bf60ff693820efbf7f4bc72788}{cont} = 0\hypertarget{ejercicio8b_8c_a961800bf60ff693820efbf7f4bc72788}{}\label{ejercicio8b_8c_a961800bf60ff693820efbf7f4bc72788}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la variable global cont. \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio8b_8c_a91e334f289dc11ba09da0df4a9c72123}{V}\hypertarget{ejercicio8b_8c_a91e334f289dc11ba09da0df4a9c72123}{}\label{ejercicio8b_8c_a91e334f289dc11ba09da0df4a9c72123}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la variable global V. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio 8 de comunicacion de procesos con variables globales. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+16/02/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{ejercicio8b.\+c@{ejercicio8b.\+c}!main@{main}}
+\index{main@{main}!ejercicio8b.\+c@{ejercicio8b.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio8b_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio8b_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion de comunicacion de procesos 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}
+\index{ejercicio8b.\+c@{ejercicio8b.\+c}!manejador\+\_\+\+S\+I\+G\+T\+E\+RM@{manejador\+\_\+\+S\+I\+G\+T\+E\+RM}}
+\index{manejador\+\_\+\+S\+I\+G\+T\+E\+RM@{manejador\+\_\+\+S\+I\+G\+T\+E\+RM}!ejercicio8b.\+c@{ejercicio8b.\+c}}
+\subsubsection[{\texorpdfstring{manejador\+\_\+\+S\+I\+G\+T\+E\+R\+M(int sig)}{manejador_SIGTERM(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void manejador\+\_\+\+S\+I\+G\+T\+E\+RM (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio8b_8c_afc491f44f9a3771e97dc0256075f0f52}{}\label{ejercicio8b_8c_afc491f44f9a3771e97dc0256075f0f52}
+
+
+funcion del manejador de S\+I\+G\+T\+E\+RM 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & señal pasada \\
+\hline
+\end{DoxyParams}
+\index{ejercicio8b.\+c@{ejercicio8b.\+c}!manejador\+\_\+\+S\+I\+G\+U\+S\+R1@{manejador\+\_\+\+S\+I\+G\+U\+S\+R1}}
+\index{manejador\+\_\+\+S\+I\+G\+U\+S\+R1@{manejador\+\_\+\+S\+I\+G\+U\+S\+R1}!ejercicio8b.\+c@{ejercicio8b.\+c}}
+\subsubsection[{\texorpdfstring{manejador\+\_\+\+S\+I\+G\+U\+S\+R1(int sig)}{manejador_SIGUSR1(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void manejador\+\_\+\+S\+I\+G\+U\+S\+R1 (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio8b_8c_af67f7ad6bdff3c40a6b1d97ae573fa4c}{}\label{ejercicio8b_8c_af67f7ad6bdff3c40a6b1d97ae573fa4c}
+
+
+funcion del manejador de S\+I\+G\+U\+S\+R1 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & señal pasada \\
+\hline
+\end{DoxyParams}

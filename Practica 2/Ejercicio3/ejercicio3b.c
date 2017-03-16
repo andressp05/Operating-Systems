@@ -22,9 +22,8 @@
 
 /**
 * @brief funcion que lista los np primeros primos 
-* @param np numero de primos a calcular 
-* @param argv[] contiene los parámetros pasados por el usuario
-* @return int: valor de exito o fracaso
+* @param arg contiene los parámetros pasados por el hilo
+* @return void*: fin del hilo
 */
 void* is_prime(void* arg){
     int* array;
@@ -87,8 +86,8 @@ int main (int argc, char *argv[]){
     n = atoi(argv[1]);
     /*Comprobamos error de no pasar un numero*/
     if(n <= 0){
-    	printf("No valido");
-    	exit(EXIT_FAILURE);
+        printf("No valido");
+        exit(EXIT_FAILURE);
     }
 
     gettimeofday(&ti, NULL);

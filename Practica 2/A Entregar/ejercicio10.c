@@ -17,14 +17,21 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define NUMPALABRAS 13
+/**
+* @brief Definicion de la macro NUMPALABRAS
+*/
+#define NUMPALABRAS 13 /*Numero de palabras del fichero*/
 
+/**
+* @brief funcion del manejador
+* @param sig señal pasada
+*/
 void captura(int sig){
     return;
 }
 
 /**
-* @brief funcion de procesos con un solo padre
+* @brief funcion de procesos A y B
 * @return int: valor de exito o fracaso
 */
 int main (){

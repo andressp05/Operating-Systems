@@ -1,4 +1,4 @@
-all: clean ejercicio3a ejercicio3b ejercicio4a ejercicio4b ejercicio6 ejercicio8 ejercicio10
+all: clean ejercicio3a ejercicio3b ejercicio4a ejercicio4b ejercicio6 ejercicio8 ejercicio8b ejercicio10
 
 CCFlags = -pedantic -g
 
@@ -51,7 +51,7 @@ ejercicio10.o: ejercicio10.c
 	gcc $(CCFlags) -c  ejercicio10.c
 
 clean:
-	rm -rf *.o ejercicio3a ejercicio3b ejercicio4a ejercicio4b ejercicio6 ejercicio8 ejercicio10 *.zip
+	rm -rf *.o ejercicio3a ejercicio3b ejercicio4a ejercicio4b ejercicio6 ejercicio8 ejercicio8b ejercicio10 *.zip
 
 dist:
-	zip  G2202_P03_2.zip *c makefile Doxyfile *.txt *.pdf html latex
+	zip  G2202_P03_2.zip *c makefile Doxyfile *.txt *.pdf html/* latex/* html/search/*

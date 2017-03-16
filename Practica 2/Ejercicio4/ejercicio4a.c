@@ -14,7 +14,10 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define MAXTAM 256
+/**
+* @brief Definicion de la macro MAXTAM
+*/
+#define MAXTAM 256 /*tamanyo maximo*/
 
 /**
  * @brief Estructura params que contiene los parametros necesarios para que el
@@ -22,10 +25,10 @@
  */
 
 typedef struct _params{
-    int dim;
-    int multiplicador;
-    int* matriz;
-    int nhilo;
+    int dim; /*!< Dimension matriz*/
+    int multiplicador; /*!< Escalar*/
+    int* matriz; /*!< Matriz*/
+    int nhilo; /*!< Identificador del hilo*/
 }params;
 
 /**
@@ -200,15 +203,15 @@ int main(){
     
     ret = pthread_create(&th1, NULL, multiplicacion, (void*) hilo1);
     if(ret) {
-		printf("Error al crear el primer hilo.\n");
-		return EXIT_FAILURE;
-	}
-	
+        printf("Error al crear el primer hilo.\n");
+        return EXIT_FAILURE;
+    }
+    
     ret = pthread_create(&th2, NULL, multiplicacion, (void*) hilo2);
     if(ret) {
-		printf("Error al crear el segundo hilo.\n");
-		return EXIT_FAILURE;
-	}
+        printf("Error al crear el segundo hilo.\n");
+        return EXIT_FAILURE;
+    }
     
     pthread_join(th1, NULL);
     pthread_join(th2, NULL);
