@@ -6,8 +6,8 @@
 #include <signal.h>
 #include <unistd.h>
 
-#define FILEKEY "/bin/cat"
 #define KEY 1300
+#define FILEKEY "/bin/cat"
 
 typedef struct info{
 	char nombre[80];
@@ -50,32 +50,36 @@ int main(int argc, char* argv[]){
                 
                 id_zone = shmget(key, sizeof(Info), IPC_CREAT | IPC_EXCL | SHM_R | SHM_W);
                 if(id_zone == -1){
-                    printf("Error al crear la zona de memoria compartida\n");
+                    id_zone = shmget(key, sizeof(Info), IPC_CREAT | SHM_R | SHM_W);
+                    if(id_zone == -1){
+                        printf("Error al crear la zona de memoria compartida\n");
+                        free(datos);
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                
+                datos = shmat(id_zone, (char*)0, SHM_R | SHM_W);
+                if(datos == NULL){
+                    printf("Error al unir la memoria\n");
                     free(datos);
                     exit(EXIT_FAILURE);
                 }
             }
             
-            pid = fork();
-            if(pid == -1){
+            if((pid = fork()) == -1){
                 printf("Error en el fork\n");
                 free(datos);
                 exit(EXIT_FAILURE);
             }
             
-            datos = shmat(id_zone, (char*)0, SHM_R | SHM_W);
-            if(datos == NULL){
-                printf("Error al unir la memoria\n");
-                free(datos);
-                exit(EXIT_FAILURE);
+            if(pid > 0){
+                if(signal(SIGUSR1, capturar) == SIG_ERR){
+                    printf("Error al capturar la señal SIGUSR1");
+                    free(datos);
+                    exit(EXIT_FAILURE);
+                }
+                pause();
             }
-            
-            if(signal(SIGUSR1, capturar) == SIG_ERR){
-                printf("Error al capturar la señal SIGUSR1");
-                free(datos);
-                exit(EXIT_FAILURE);
-            }
-            pause();
         } 
         
         if(pid == 0){
@@ -96,8 +100,11 @@ int main(int argc, char* argv[]){
                 (*datos).id++;
             }
             
+            shmdt((char*) datos);
+            shmctl(id_zone, IPC_RMID, (struct shmid_ds*) NULL);
             kill(getppid(), SIGUSR1);
             exit(EXIT_SUCCESS);
         }
     }
+    exit(EXIT_SUCCESS);
 }
