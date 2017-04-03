@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
     
     if((n = atoi(argv[1])) <= 0){
         printf("El argumento de entrada debe ser un entero positivo\n");
-        return;
+        return EXIT_FAILURE;
     }
     
     for(i = 0; i < n; i++){
