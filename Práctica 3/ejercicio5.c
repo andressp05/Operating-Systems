@@ -9,14 +9,23 @@ int main (){
 	* Declaración de variables
 	*/
 	int sem_id_binario; /* IDs de semaforos binarios*/
-	int ret;
-	int *array;
-	
-	array = (int *)malloc(sizeof(int)*N_SEMAFOROS);
+	int ret, i;
+	unsigned short *array;
+	int num_sem[] = {0, 1, 2};
+
+	array = (unsigned short *)malloc(sizeof(short)*N_SEMAFOROS);
 	if(!array){
 		perror("Error al reservar memoria");
 		return ERROR;
+	}
+
+	/*
+	* Inicializamos el array de semaforos binarios
+	*/
+	for(i = 0; i < N_SEMAFOROS; i++){
+		array[i] = 1;
 	}	
+
 	/*
 	* Creamos una lista o conjunto con tres semáforos
 	*/
@@ -25,6 +34,9 @@ int main (){
 		free(array);
 		return ERROR;
 	}
+
+	printf("Crear\n");
+	fflush(stdout);
 
 	/*
 	* Vemos que los semáforos ya se han creado
@@ -35,6 +47,9 @@ int main (){
 		return ERROR;
 	}
 
+	printf("Crear con semaforos ya existentes\n");
+	fflush(stdout);
+
 	/*
 	* Inicializamos los semáforos
 	*/
@@ -44,17 +59,20 @@ int main (){
 		return ERROR;
 	}
 
+	printf("Inicializar\n");
+	fflush(stdout);
 
 	/*
 	* Operamos sobre los semáforos
 	*/
-	
 	if(Down_Semaforo(sem_id_binario, 0, SEM_UNDO) == ERROR){
 		perror("Error al decrementar el semáforo 0");
 		free(array);
 		return ERROR;
 	}
 
+	printf("Down semaforo 0\n");
+	fflush(stdout);
 
 	if(Up_Semaforo(sem_id_binario, 0, SEM_UNDO) == ERROR){
 		perror("Error al aumentar el semáforo 0");
@@ -62,26 +80,44 @@ int main (){
 		return ERROR;
 	}	
 
-	if(DownMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,array) == ERROR){
+	printf("Up semaforo 0\n");
+	fflush(stdout);
+
+	ret = DownMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,num_sem);
+
+	if(ret == ERROR){
 		perror("Error al decrementar el array de semáforos");
 		free(array);
 		return ERROR;
 	}
 
-	if(UpMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,array) == ERROR){
+	else if(ret == ERROR_SIN_REESTABLECER){
+		perror("Error, no controlamos el estado de los semáforos. Al hacer DownMultiple_Semaforo");
+		free(array);
+		return ERROR;	
+	}
+
+	printf("DownMultiple_Semaforo\n");
+	fflush(stdout);
+
+	ret = UpMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,num_sem); 
+	
+	if(ret == ERROR){
 		perror("Error al aumentar el array de semáforos");
 		free(array);
 		return ERROR;
 	}
 
-	printf("Ejecución correcta");
+	else if(ret == ERROR_SIN_REESTABLECER){
+		perror("Error, no controlamos el estado de los semáforos. Al hacer UpMultiple_Semaforo");
+		free(array);
+		return ERROR;	
+	}
+
+	printf("DownMultiple_Semaforo\n");
+	fflush(stdout);
+
+	printf("Ejecución correcta\n");
 	return OK;
 	
 }
-/*	semctl (semid, N_SEMAFOROS, GETALL, arg);
-	printf (“Los valores de los semáforos son %d y %d”,
-	arg.array [0], arg.array [1]);
-	/* Eliminar la lista de semáforos */
-/*s	semctl (semid, N_SEMAFOROS, IPC_RMID, 0);
-	free(arg.array);
-	/* fin de la función main */
