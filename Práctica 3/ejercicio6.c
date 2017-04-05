@@ -56,6 +56,7 @@ int main(){
     /*
     * Declaración de variables
     */
+    int i; /* variable para convertir el buffer en circular*/
     int pid_productor, pid_consumidor; /* pid para manejar los hijos tras el fork*/
     int semid; /*Identificador de semaforos*/
     int key; /* Clave para crear zona compartida*/
@@ -63,7 +64,7 @@ int main(){
     char* buffer; /* Array que ira almacenando las letras producidas*/
     char c; /* Caracter leido*/
     char* s; /* Variable para manejar caracteres del buffer*/
-    unsigned short array[] = {1,SIZE,0}; /* Array de semaforos*/
+    unsigned short array[] = {1,SIZE-1,0}; /* Array de semaforos*/
 
     /*
     * Obtenemos la clave para poder crear la zona compartida
@@ -132,7 +133,7 @@ int main(){
         }
 
         s = buffer;        
-        for(c = 'a'; c <= 'z'; c++){
+        for(i = 0, c = 'a'; c <= 'z'; i++, c++){
             if(Down_Semaforo(semid, VACIO, 0) == ERROR){
                 perror("Error al decrementar el semáforo vacio");
                 shmdt(buffer);
@@ -143,7 +144,8 @@ int main(){
                 shmdt(buffer);
                 exit(EXIT_FAILURE);
             }
-            *s++ = c;
+            *s = c;
+            s = buffer+i%SIZE;
             printf("Produce %c\n", c);
             if(Up_Semaforo(semid, MUTEX, 0) == ERROR){
                 perror("Error al aumentar el semáforo MUTEX");
@@ -184,7 +186,7 @@ int main(){
             exit(EXIT_FAILURE);
         }
 
-        for(s = buffer; *s <= 'z'; s++){
+        for(s = buffer, i = 0; *s <= 'z'; i++){
             if(Down_Semaforo(semid, LLENO, 0) == ERROR){
                 perror("Error al decrementar el semáforo lleno");
                 shmdt(buffer);
@@ -212,6 +214,7 @@ int main(){
             if(*s == 'z'){
                 break;
             }
+            s = buffer+i%SIZE;
         }
         exit(EXIT_SUCCESS);
     }

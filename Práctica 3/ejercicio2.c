@@ -128,7 +128,8 @@ int main(int argc, char* argv[]){
         
         /* En este if solo entraran los hijos y realizan lo pedido en el enunciado*/
         if(pid == 0){
-            sleep(2);
+            srand(getpid());
+            usleep(random()%5000000);
             datos = shmat(id_zone, (char*)0, SHM_R | SHM_W);
             if(datos == NULL){
                 printf("Error al unir la memoria\n");
