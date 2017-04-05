@@ -103,7 +103,7 @@ int main(){
     
     if((pid_consumidor = fork()) == -1){
         perror("Error al realizar el segundo fork\n");
-        kill(pid_productor, SIG_KILL);
+        kill(pid_productor, SIGKILL);
         wait(NULL);
         Borrar_Semaforo(semid);        
         shmdt(buffer);
@@ -112,7 +112,7 @@ int main(){
     }
     
     /* consumidor */
-    if(pid == 0){
+    if(pid_consumidor == 0){
         buffer = shmat(id_zone, (char*)0, SHM_R | SHM_W);
         if(buffer == NULL){
             printf("Error al unir la memoria\n");
