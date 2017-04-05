@@ -17,7 +17,7 @@
 
 
 int main(){
-    int pid;
+    int pid_productor, pid_consumidor;
     int semid;
     int key;
     int id_zone;
@@ -53,18 +53,20 @@ int main(){
         perror("Error al inicializar semáforos");
         shmdt(buffer);
         shmctl(id_zone, IPC_RMID, (struct shmid_ds*) NULL);
+        Borrar_Semaforo(semid);
         exit(EXIT_FAILURE);
     }
 
-    if((pid = fork()) == -1){
+    if((pid_productor = fork()) == -1){
         perror("Error al realizar el primer fork\n");
         shmdt(buffer);
         shmctl(id_zone, IPC_RMID, (struct shmid_ds*) NULL);
+        Borrar_Semaforo(semid);
         exit(EXIT_FAILURE);
     }
     
     /* productor */
-    if(pid == 0){
+    if(pid_productor == 0){
         buffer = shmat(id_zone, (char*)0, SHM_R | SHM_W);
         if(buffer == NULL){
             printf("Error al unir la memoria\n");
@@ -99,8 +101,11 @@ int main(){
         exit(EXIT_SUCCESS);
     }
     
-    if((pid = fork()) == -1){
+    if((pid_consumidor = fork()) == -1){
         perror("Error al realizar el segundo fork\n");
+        kill(pid_productor, SIG_KILL);
+        wait(NULL);
+        Borrar_Semaforo(semid);        
         shmdt(buffer);
         shmctl(id_zone, IPC_RMID, (struct shmid_ds*) NULL);
         exit(EXIT_FAILURE);
@@ -149,5 +154,6 @@ int main(){
     wait(NULL);
     wait(NULL);
     shmctl(id_zone, IPC_RMID, (struct shmid_ds*) NULL);
+    Borrar_Semaforo(semid);
     exit(EXIT_SUCCESS);
 }
