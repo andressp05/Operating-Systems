@@ -167,6 +167,8 @@ int main (){
     printf("Borrar_Semaforo\n");
     fflush(stdout);
 
+    free(array);
+
     /* Comprueba que la ejecucion ha sido buena*/
     printf("Ejecución correcta\n");
     return OK;

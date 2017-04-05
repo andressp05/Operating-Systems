@@ -24,4 +24,4 @@ clean:
 	rm -rf *.o ejercicio2 ejercicio5 ejercicio5b ejercicio6 *.zip
 
 dist:
-	zip  G2202_P03_2.zip *c makefile Doxyfile *.txt *.pdf html/* latex/* html/search/*
+	zip  G2202_P03_2.zip *.h *c makefile Doxyfile *.txt Informe.pdf html/* latex/* html/search/*
