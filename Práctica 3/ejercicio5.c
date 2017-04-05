@@ -114,9 +114,16 @@ int main (){
 		return ERROR;	
 	}
 
-	printf("DownMultiple_Semaforo\n");
+	printf("UpMultiple_Semaforo\n");
 	fflush(stdout);
 
+	if(Borrar_Semaforo(sem_id_binario) == ERROR){
+		perror("Error al borrar el semáforo");
+		free(array);
+		return ERROR;
+	}
+	
+	printf("Borrar_Semaforo\n");
 	printf("Ejecución correcta\n");
 	return OK;
 	
