@@ -19,27 +19,27 @@ unsigned short *array: Valores iniciales.
 Salida:
 int: OK si todo fue correcto, ERROR en caso de error.
 ************************************************************/
-int Inicializar_Semaforo(int semid,int *array){
+int Inicializar_Semaforo(int semid,unsigned short *array){
 	
 	int i;
 
 	union semun {
 		int val;
 		struct semid_ds *semstat;
-		unsigned int *array;
+		unsigned short *array;
 	} arg;
 
 
-	arg.array = (unsigned int *) malloc (sizeof(unsigned int)* sizeof(array) / sizeof(unsigned int));
+	arg.array = (unsigned short *) malloc (sizeof(short)* sizeof(array) / sizeof(short));
 	
 	if(!arg.array)
 		return ERROR;
 
-	for (i = 0; i <= (sizeof(array) / sizeof(int)); i++){
-		arg.array[i] = 1;
+	for (i = 0; i <= (sizeof(array) / sizeof(short)); i++){
+		arg.array[i] = array[i];
 	}
 
-	if (semctl (semid, sizeof(array) / sizeof(int), SETALL, arg) == -1){
+	if (semctl (semid, sizeof(array) / sizeof(short), SETALL, arg) == -1){
 		free(arg.array);
 		return ERROR;
 	}
@@ -199,6 +199,5 @@ int UpMultiple_Semaforo(int semid,int size, int undo, int *active){
 		}
 	}
 
-	return OK;
-	
+	return OK;	
 }

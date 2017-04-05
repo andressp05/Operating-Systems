@@ -16,7 +16,7 @@ unsigned short *array: Valores iniciales.
 Salida:
 int: OK si todo fue correcto, ERROR en caso de error.
 ************************************************************/
-int Inicializar_Semaforo(int semid, int *array);
+int Inicializar_Semaforo(int semid, unsigned short *array);
 
 /***************************************************************
 Nombre: Borrar_Semaforo.
