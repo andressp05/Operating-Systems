@@ -11,7 +11,7 @@
 #define MUTEX 0
 #define VACIO 1
 #define LLENO 2
-#define SIZE 26
+#define SIZE 5
 #define KEY 1300
 #define FILEKEY "/bin/cat"
 
@@ -24,7 +24,7 @@ int main(){
     char* buffer;
     char c;
     char* s;
-    unsigned short array[] = {1,26,0};
+    unsigned short array[] = {1,SIZE,0};
 
     key = ftok(FILEKEY, KEY);
     if(key == -1){
