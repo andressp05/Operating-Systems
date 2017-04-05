@@ -1,11 +1,11 @@
 /**
- * @brief Implementa el ejercicio 5 de semaforos (test con BINARIOS)
- * @file ejercicio5.c
+ * @brief Implementa el ejercicio 5b de semaforos (test con N-ARIOS)
+ * @file ejercicio5b.c
  * @author Andres Salas andres.salas@estudiante.uam.es
  * @author Antonio Martin antonio.martinmasuda@estudiante.uam.es
  * @note Grupo 2202
  * @version 1.0
- * @date 31/03/2017
+ * @date 05/03/2017
  */
 #include "semaforos.h"
 #include <sys/sem.h>
@@ -23,7 +23,7 @@
 
 
 /**
-* @brief funcion principal/ test con semaforos BINARIOS
+* @brief funcion principal/ test con semaforos BINARIOS y N-ARIOS
 *   siguiendo el codigo se explica que se va realizando
 * @return int: valor de exito (OK) o fracaso (ERROR)
 */
@@ -31,7 +31,7 @@ int main (){
     /*
     * Declaración de variables
     */
-    int sem_id_binario; /* IDs de semaforos binarios*/
+    int sem_id; /* IDs de semaforos*/
     int ret; /*variable para guardar el retorno de los multiple down y up*/
     int i; /*variable para inicializar todos los valores de los semaforos*/
     unsigned short *array; /* array de semaforos*/
@@ -48,13 +48,13 @@ int main (){
     * Inicializamos el array de semaforos binarios
     */
     for(i = 0; i < N_SEMAFOROS; i++){
-        array[i] = 1;
+        array[i] = i+1;
     }   
 
     /*
     * Creamos una lista o conjunto con tres semáforos
     */
-    if(Crear_Semaforo(SEMKEY, N_SEMAFOROS, &sem_id_binario) != 0){
+    if(Crear_Semaforo(SEMKEY, N_SEMAFOROS, &sem_id) != 0){
         perror("Error al crear semáforos");
         free(array);
         return ERROR;
@@ -67,7 +67,7 @@ int main (){
     /*
     * Vemos que los semáforos ya se han creado
     */
-    if(Crear_Semaforo(SEMKEY, N_SEMAFOROS, &sem_id_binario) != 1){
+    if(Crear_Semaforo(SEMKEY, N_SEMAFOROS, &sem_id) != 1){
         perror("Error al intentar crear semáforos ya existentes");
         free(array);
         return ERROR;
@@ -80,7 +80,7 @@ int main (){
     /*
     * Inicializamos los semáforos
     */
-    if(Inicializar_Semaforo(sem_id_binario, array) == ERROR){
+    if(Inicializar_Semaforo(sem_id, array) == ERROR){
         perror("Error al inicializar semáforos");
         free(array);
         return ERROR;
@@ -94,30 +94,8 @@ int main (){
     * Operamos sobre los semáforos
     */
 
-    /* Realizamos un down */
-    if(Down_Semaforo(sem_id_binario, 0, SEM_UNDO) == ERROR){
-        perror("Error al decrementar el semáforo 0");
-        free(array);
-        return ERROR;
-    }
-
-    /* Comprueba que funciona correctamente*/
-    printf("Down semaforo 0\n");
-    fflush(stdout);
-
-    /* Realizamos un up */
-    if(Up_Semaforo(sem_id_binario, 0, SEM_UNDO) == ERROR){
-        perror("Error al aumentar el semáforo 0");
-        free(array);
-        return ERROR;
-    }   
-
-    /* Comprueba que funciona correctamente*/
-    printf("Up semaforo 0\n");
-    fflush(stdout);
-
     /* Realizamos el down multiple */
-    ret = DownMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,num_sem);
+    ret = DownMultiple_Semaforo(sem_id,N_SEMAFOROS,SEM_UNDO,num_sem);
 
     if(ret == ERROR){
         perror("Error al decrementar el array de semáforos");
@@ -135,8 +113,74 @@ int main (){
     printf("DownMultiple_Semaforo\n");
     fflush(stdout);
 
+    /* Realizamos un down del segundo semaforo */
+    if(Down_Semaforo(sem_id, 1, SEM_UNDO) == ERROR){
+        perror("Error al decrementar el semáforo 1");
+        free(array);
+        return ERROR;
+    }
+
+    /* Comprueba que funciona correctamente*/
+    printf("Down semaforo 1\n");
+    fflush(stdout);
+
+    /* Realizamos un down del tercer semaforo */
+    if(Down_Semaforo(sem_id, 2, SEM_UNDO) == ERROR){
+        perror("Error al decrementar el semáforo 2");
+        free(array);
+        return ERROR;
+    }
+
+    /* Comprueba que funciona correctamente*/
+    printf("Down semaforo 2\n");
+    fflush(stdout);
+
+    /* Realizamos un nuevo down del tercer semaforo */
+    if(Down_Semaforo(sem_id, 2, SEM_UNDO) == ERROR){
+        perror("Error al decrementar el semáforo 2");
+        free(array);
+        return ERROR;
+    }
+
+    /* Comprueba que funciona correctamente*/
+    printf("Down semaforo 2\n");
+    fflush(stdout);
+
+    /* Realizamos un up del tercer semaforo*/
+    if(Up_Semaforo(sem_id, 2, SEM_UNDO) == ERROR){
+        perror("Error al aumentar el semáforo 2");
+        free(array);
+        return ERROR;
+    }   
+
+    /* Comprueba que funciona correctamente*/
+    printf("Up semaforo 2\n");
+    fflush(stdout);
+
+    /* Realizamos un nuevo up del tercer semaforo*/
+    if(Up_Semaforo(sem_id, 2, SEM_UNDO) == ERROR){
+        perror("Error al aumentar el semáforo 2");
+        free(array);
+        return ERROR;
+    }   
+
+    /* Comprueba que funciona correctamente*/
+    printf("Up semaforo 2\n");
+    fflush(stdout);
+
+    /* Realizamos un up del segundo semaforo*/
+    if(Up_Semaforo(sem_id, 1, SEM_UNDO) == ERROR){
+        perror("Error al aumentar el semáforo 1");
+        free(array);
+        return ERROR;
+    }   
+
+    /* Comprueba que funciona correctamente*/
+    printf("Up semaforo 1\n");
+    fflush(stdout);
+
     /* Realizamos el up multiple */
-    ret = UpMultiple_Semaforo(sem_id_binario,N_SEMAFOROS,SEM_UNDO,num_sem); 
+    ret = UpMultiple_Semaforo(sem_id,N_SEMAFOROS,SEM_UNDO,num_sem); 
     
     if(ret == ERROR){
         perror("Error al aumentar el array de semáforos");
@@ -157,7 +201,7 @@ int main (){
     /*
     * Borramos los semaforos
     */
-    if(Borrar_Semaforo(sem_id_binario) == ERROR){
+    if(Borrar_Semaforo(sem_id) == ERROR){
         perror("Error al borrar el semáforo");
         free(array);
         return ERROR;

@@ -27,14 +27,15 @@ Salida:
 int: OK si todo fue correcto, ERROR en caso de error.
 ***************************************************************/
 int Borrar_Semaforo(int semid);
+
 /***************************************************************
 Nombre: Crear_Semaforo.Descripcion: Crea un semaforo con la clave y el tamaño
 especificado. Lo inicializa a 0.
 Entrada:
 key_t key: Clave precompartida del semaforo.
 int size: Tamaño del semaforo.
-Salida:
 int *semid: Identificador del semaforo.
+Salida:
 int: ERROR en caso de error,
 0 si ha creado el semaforo,
 1 si ya estaba creado.

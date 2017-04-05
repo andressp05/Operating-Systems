@@ -1,0 +1,85 @@
+\hypertarget{ejercicio6_8c}{}\section{Referencia del Archivo ejercicio6.\+c}
+\label{ejercicio6_8c}\index{ejercicio6.\+c@{ejercicio6.\+c}}
+
+
+Implementa el ejercicio 6 de semaforos (productor-\/consumidor)  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/sem.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\\*
+{\ttfamily \#include $<$sys/shm.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}semaforos.\+h\char`\"{}}\\*
+Dependencia gráfica adjunta para ejercicio6.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ejercicio6_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ejercicio6_8c_a2cf3c22d8cacfe663a4eec13d0fb26ef}{M\+U\+T\+EX}~0\hypertarget{ejercicio6_8c_a2cf3c22d8cacfe663a4eec13d0fb26ef}{}\label{ejercicio6_8c_a2cf3c22d8cacfe663a4eec13d0fb26ef}
+
+\begin{DoxyCompactList}\small\item\em Definicion del numero de semaforo Mutual Exclusion (M\+U\+T\+EX) \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio6_8c_a1a45b6ab2cdbde823185990e3a17e269}{V\+A\+C\+IO}~1\hypertarget{ejercicio6_8c_a1a45b6ab2cdbde823185990e3a17e269}{}\label{ejercicio6_8c_a1a45b6ab2cdbde823185990e3a17e269}
+
+\begin{DoxyCompactList}\small\item\em Definicion del numero de semaforo Vacio. \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio6_8c_a14ecf5f3eae5d5ae28b03b0fb2bd799b}{L\+L\+E\+NO}~2\hypertarget{ejercicio6_8c_a14ecf5f3eae5d5ae28b03b0fb2bd799b}{}\label{ejercicio6_8c_a14ecf5f3eae5d5ae28b03b0fb2bd799b}
+
+\begin{DoxyCompactList}\small\item\em Definicion del numero de semaforo Lleno. \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio6_8c_a70ed59adcb4159ac551058053e649640}{S\+I\+ZE}~5\hypertarget{ejercicio6_8c_a70ed59adcb4159ac551058053e649640}{}\label{ejercicio6_8c_a70ed59adcb4159ac551058053e649640}
+
+\begin{DoxyCompactList}\small\item\em definicion del tamaño del buffer \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio6_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{K\+EY}~1300\hypertarget{ejercicio6_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{}\label{ejercicio6_8c_a8ae9d53f33f46cfcfcb9736e6351452a}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave. \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio6_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{F\+I\+L\+E\+K\+EY}~\char`\"{}/bin/cat\char`\"{}\hypertarget{ejercicio6_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{}\label{ejercicio6_8c_a68c15c5fb7f7c6f707903e6a46ab0557}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave de fichero. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ejercicio6_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\begin{DoxyCompactList}\small\item\em funcion principal que implementa el problema del productor-\/consumidor visto en teoria con un abecedario \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio 6 de semaforos (productor-\/consumidor) 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+01/03/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{ejercicio6.\+c@{ejercicio6.\+c}!main@{main}}
+\index{main@{main}!ejercicio6.\+c@{ejercicio6.\+c}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio6_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{ejercicio6_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+funcion principal que implementa el problema del productor-\/consumidor visto en teoria con un abecedario 
+
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito o fracaso 
+\end{DoxyReturn}

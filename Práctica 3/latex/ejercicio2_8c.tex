@@ -1,0 +1,120 @@
+\hypertarget{ejercicio2_8c}{}\section{Referencia del Archivo ejercicio2.\+c}
+\label{ejercicio2_8c}\index{ejercicio2.\+c@{ejercicio2.\+c}}
+
+
+Implementa el ejercicio 2 de memoria compartida.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$sys/shm.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+Dependencia gráfica adjunta para ejercicio2.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ejercicio2_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structinfo}{info}
+\begin{DoxyCompactList}\small\item\em Estructura info que contiene los parametros pedidos para la reserva de un bloque de memoria. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ejercicio2_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{K\+EY}~1300\hypertarget{ejercicio2_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{}\label{ejercicio2_8c_a8ae9d53f33f46cfcfcb9736e6351452a}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave. \end{DoxyCompactList}\item 
+\#define \hyperlink{ejercicio2_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{F\+I\+L\+E\+K\+EY}~\char`\"{}/bin/cat\char`\"{}\hypertarget{ejercicio2_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{}\label{ejercicio2_8c_a68c15c5fb7f7c6f707903e6a46ab0557}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave de fichero. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}typedefs\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structinfo}{info} \hyperlink{ejercicio2_8c_a163511f3dadd6f89b69b2c2b6d40dcf7}{Info}\hypertarget{ejercicio2_8c_a163511f3dadd6f89b69b2c2b6d40dcf7}{}\label{ejercicio2_8c_a163511f3dadd6f89b69b2c2b6d40dcf7}
+
+\begin{DoxyCompactList}\small\item\em Estructura info que contiene los parametros pedidos para la reserva de un bloque de memoria. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ejercicio2_8c_a0ea23ff7004eb4a35a58394731fc9474}{capturar} (int signal)
+\begin{DoxyCompactList}\small\item\em funcion de captura de señales \end{DoxyCompactList}\item 
+int \hyperlink{ejercicio2_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion principal que genera nhijos y que implementa todo lo que debe realizar tanto el padre como sus hijos \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ejercicio2_8c_a163511f3dadd6f89b69b2c2b6d40dcf7}{Info} $\ast$ \hyperlink{ejercicio2_8c_a1a7947f4bb22d269cbbdca314e89c2af}{datos} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio 2 de memoria compartida. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+24/03/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{ejercicio2.\+c@{ejercicio2.\+c}!capturar@{capturar}}
+\index{capturar@{capturar}!ejercicio2.\+c@{ejercicio2.\+c}}
+\subsubsection[{\texorpdfstring{capturar(int signal)}{capturar(int signal)}}]{\setlength{\rightskip}{0pt plus 5cm}void capturar (
+\begin{DoxyParamCaption}
+\item[{int}]{signal}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio2_8c_a0ea23ff7004eb4a35a58394731fc9474}{}\label{ejercicio2_8c_a0ea23ff7004eb4a35a58394731fc9474}
+
+
+funcion de captura de señales 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em signal} & señal pasada \\
+\hline
+\end{DoxyParams}
+\index{ejercicio2.\+c@{ejercicio2.\+c}!main@{main}}
+\index{main@{main}!ejercicio2.\+c@{ejercicio2.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{ejercicio2_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{ejercicio2_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion principal que genera nhijos y que implementa todo lo que debe realizar tanto el padre como sus hijos 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito (OK) o fracaso (E\+R\+R\+OR) 
+\end{DoxyReturn}
+
+
+\subsection{Documentación de las variables}
+\index{ejercicio2.\+c@{ejercicio2.\+c}!datos@{datos}}
+\index{datos@{datos}!ejercicio2.\+c@{ejercicio2.\+c}}
+\subsubsection[{\texorpdfstring{datos}{datos}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Info}$\ast$ datos = N\+U\+LL}\hypertarget{ejercicio2_8c_a1a7947f4bb22d269cbbdca314e89c2af}{}\label{ejercicio2_8c_a1a7947f4bb22d269cbbdca314e89c2af}
+Inicializacion de la estructura a N\+U\+LL 
