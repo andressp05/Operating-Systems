@@ -34,15 +34,8 @@ int Inicializar_Semaforo(int semid,unsigned short *array){
     } arg;
 
 
-    arg.array = (unsigned short *) malloc (sizeof(short)* sizeof(array) / sizeof(short));
+    arg.array = array;
     
-    if(!arg.array)
-        return ERROR;
-
-    for (i = 0; i <= (sizeof(array) / sizeof(short)); i++){
-        arg.array[i] = array[i];
-    }
-
     if (semctl (semid, sizeof(array) / sizeof(short), SETALL, arg) == -1){
         free(arg.array);
         return ERROR;
