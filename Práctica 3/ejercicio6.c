@@ -133,7 +133,7 @@ int main(){
         }
 
         s = buffer;        
-        for(i = 0, c = 'a'; c <= 'z'; i++, c++){
+        for(i = 1, c = 'a'; c <= 'z'; i++, c++){
             if(Down_Semaforo(semid, VACIO, 0) == ERROR){
                 perror("Error al decrementar el semáforo vacio");
                 shmdt(buffer);
@@ -186,7 +186,7 @@ int main(){
             exit(EXIT_FAILURE);
         }
 
-        for(s = buffer, i = 0; *s <= 'z'; i++){
+        for(s = buffer, i = 1; *s <= 'z'; i++){
             if(Down_Semaforo(semid, LLENO, 0) == ERROR){
                 perror("Error al decrementar el semáforo lleno");
                 shmdt(buffer);
