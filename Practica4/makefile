@@ -1,0 +1,15 @@
+all: clean cadena_montaje dist
+
+CCFlags = -pedantic -g
+
+cadena_montaje: cadena_montaje.o
+	gcc -o cadena_montaje cadena_montaje.o
+
+cadena_montaje.o: cadena_montaje.c
+	gcc $(CCFlags) -c  cadena_montaje.c
+ 
+clean:
+	rm -rf *.o cadena_montaje *.zip
+
+dist:
+	zip  G2202_P03_4.zip *.h *c makefile Doxyfile *.txt Informe.pdf html/* latex/* html/search/*
