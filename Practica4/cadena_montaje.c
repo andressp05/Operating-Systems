@@ -16,6 +16,7 @@
 #include <sys/msg.h>
 #include <signal.h>
 #include <sys/shm.h>
+#include <sys/wait.h>
 #include <errno.h>
 #include <unistd.h>
 
@@ -37,8 +38,11 @@
 /**
 * @brief Definicion del tamanyo del "trozo" de lectura del fichero
 */
-#define TROZOS 5
+#define TROZOS 1
 
+
+
+int k = 0;
 
 /**
  * @brief Estructura mensaje que contiene todos sus parametros necesarios para la
@@ -66,9 +70,10 @@ int main(int argc, char* argv[]){
     char *destino;
     char aux[TROZOS];
     char aux2[TROZOS];
-    int i,j;
-    int pid = 1;
+    int i,j,l;
+    int pid = 0;
     int msqid;
+    struct msqid_ds *buf = NULL;
 	mensaje msg;
     key_t key;
     FILE* fo = NULL;
@@ -77,106 +82,137 @@ int main(int argc, char* argv[]){
     /*
     * Comprobacion de errores
     */
-    if(argc != 3){
+
+    if (argc == 2){
+    	destino = "destino.txt";
+    }
+
+    else if(argc != 3){
         printf("Se debe pasar dos argumentos que seran fichero de origen y de destino\n");
         exit(EXIT_FAILURE);
     }
-    
-    origen = argv[1];
+
+    else {
 	destino = argv[2];
-    
-    printf("Paso 1");
+    }
 
-    for(i = 0; i < NUM_PROCESOS; i++){
-        if(pid > 0){
-            if(i == 0){
-                /*  Obtenemos la clave para poder crear la cola de mensajes */
-                key = ftok(FILEKEY, KEY);
-                if(key == -1){
-                    perror("Error al obtener key\n");
-                    exit(EXIT_FAILURE);
-                }
-                
-                printf("%d\n", key);
+    origen = argv[1];
 
-                /* Creacion de la cola de mensajes */
-                msqid = msgget(key, IPC_CREAT | IPC_EXCL | SHM_R | SHM_W);
-                if(msqid == -1){
-                    msqid = msgget(key, IPC_CREAT | SHM_R | SHM_W);
-                    if(msqid == -1){
-                        perror("Error al crear la cola de mensajes\n");
-                        exit(EXIT_FAILURE);
-                    }
-                }
+    /* Reservamos memoria para la estructura msqid_ds */
+    buf = (struct msqid_ds*) malloc(sizeof(struct msqid_ds));
+    if(buf == NULL){
+    	printf("Error al reservar memoria");
+    	exit(EXIT_FAILURE);
+    }
 
-                printf("%d\n", msqid);
-            }
-            
+    /*  Obtenemos la clave para poder crear la cola de mensajes */
+    key = ftok(FILEKEY, KEY);
+    if(key == -1){
+    	perror("Error al obtener key\n");
+    	free(buf);
+    	exit(EXIT_FAILURE);
+    }
+    /* Creacion de la cola de mensajes */
+    msqid = msgget(key, IPC_CREAT | IPC_EXCL | SHM_R | SHM_W);
+    if(msqid == -1){
+    	msqid = msgget(key, IPC_CREAT | SHM_R | SHM_W);
+        if(msqid == -1){
+            perror("Error al crear la cola de mensajes\n");
+            free(buf);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    for(i = 0; i < NUM_PROCESOS-1; i++){
+        if(pid == 0){        
             if((pid = fork()) == -1){
                 printf("Error en el fork\n");
                 msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
 				exit(EXIT_FAILURE);
             }
         } 
-        
+        wait(NULL);
+
         /* If para lo que hará el proceso hijo A*/
-        if(pid == 0 && i == 0){
+        if(i == 1 && pid == 0){
         	fo = fopen(origen, "r");
         	if(fo == NULL){
         		printf("Error al abrir el fichero.\n");
         		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
         		exit(EXIT_FAILURE);
     		}
-
-    		fscanf(fo, "%s", aux);
-    		msg.id = 1; /*Tipo de mensaje*/
-			msg.valor= 0;
-			strcpy (msg.aviso, aux);
-			printf("%s\n", msg.aviso);
-			msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
+    		while(fscanf(fo, "%s", aux) > 0){
+    			msg.id = 1; /*Tipo de mensaje*/
+				msg.valor= 0;
+				strcpy (msg.aviso, aux);
+				printf("%s\n", msg.aviso);
+				msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
+				printf("%s\n", msg.aviso);
+				memset(aux, 0, sizeof(aux));
+			}
     		fclose(fo);
+    		exit(EXIT_SUCCESS);
     	}
 
     	/* Else If para lo que hará el proceso hijo B*/
-    	else if(pid == 0 && i == 1){
-    		msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 1, 0);
-    		
-    		printf("%s\n", msg.aviso);
-			
-    		for(j=0;msg.aviso[j] != '\0';j++){
-    			if(msg.aviso[j] < 'a' || msg.aviso[j] > 'z')
-    				continue;
-    			msg.aviso[j] = (int) msg.aviso[j] - 32;
-    			printf("%d %s\n", j,msg.aviso);
-    		}
-			
-			printf("%s\n", msg.aviso);
-    		msg.id = 2;
-    		msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
-    	}
-
-    	/* Else If para lo que hará el proceso hijo C*/
-    	else if(pid == 0 && i == 2){
-			fd = fopen(destino, "a");
-        	if(fd == NULL){
-        		printf("Error al abrir el fichero.\n");
+    	else if(i == 1 && pid > 0){
+    		if(msgctl(msqid, IPC_STAT, buf) == -1){
+    			printf("Error obtener la estructuras de la cola de mensajes %d.\n", errno);
         		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
         		exit(EXIT_FAILURE);
     		}
-
-    		msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 2, 0);
-			
-			printf("%s\n", msg.aviso);
+    		for (k = buf->msg_qnum; k > 0; k--){
+    			msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 1, 0);
     		
-			for(j=0;msg.aviso[j] != '\0';j++){
-				aux2[j] = msg.aviso[j];  
+    			printf("%s\n", msg.aviso);
+			
+    			for(j=0;msg.aviso[j] != '\0';j++){
+	    			if(msg.aviso[j] < 'a' || msg.aviso[j] > 'z')
+    					continue;
+    				msg.aviso[j] = (int) msg.aviso[j] - 32;
+    			}
+			
+    			msg.id = 2;
+    			msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
+    			printf("%s\n", msg.aviso);
+    		}
+    		exit(EXIT_SUCCESS);
+    	}
+
+    	/* Else If para lo que hará el proceso hijo C*/
+    	else if(i == 0 && pid > 0){
+			fd = fopen(destino, "w");
+        	if(fd == NULL){
+        		printf("Error al abrir el fichero.\n");
+        		free(buf);
+        		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
+        		exit(EXIT_FAILURE);
+    		}
+    		if(msgctl(msqid, IPC_STAT, buf) == -1){
+    			printf("Error obtener la estructura de la cola de mensajes.\n");
+        		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
+        		free(buf);
+        		exit(EXIT_FAILURE);
+    		}
+    		for (k = buf->msg_qnum; k > 0; k--){
+	    		msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 2, 0);
+			
+				printf("%s\n", msg.aviso);
+    		
+				for(j=0;msg.aviso[j] != '\0';j++){
+					aux2[j] = msg.aviso[j];  
+				}
+			
+				fprintf(fd, "%s", aux2);
+				memset(aux2, 0, sizeof(aux2));
 			}
-			
-			fprintf(fd, "%s", aux2);
-			
-			fclose(fd);		
+			fclose(fd);
+			msgctl (msqid, IPC_RMID, buf);
+			free(buf);
+    		exit(EXIT_SUCCESS);
     	}
 	}
-	msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
+	free(buf);
+	msgctl (msqid, IPC_RMID, buf);
     exit(EXIT_SUCCESS);
 }
