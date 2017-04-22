@@ -36,13 +36,9 @@
 #define NUM_PROCESOS 3
 
 /**
-* @brief Definicion del tamanyo del "trozo" de lectura del fichero
+* @brief Definicion del tamanyo maximo de lectura del fichero
 */
-#define TROZOS 1
-
-
-
-int k = 0;
+#define MAXTAM 80
 
 /**
  * @brief Estructura mensaje que contiene todos sus parametros necesarios para la
@@ -52,7 +48,7 @@ typedef struct _Mensaje{
 	long id; /*!<Tipo de mensaje*/
 	/*Informacion a transmitir en el mensaje*/
 	int valor; 
-	char aviso[80];
+	char aviso[MAXTAM];
 } mensaje;
 
 /**
@@ -68,9 +64,8 @@ int main(int argc, char* argv[]){
     */
     char *origen;
     char *destino;
-    char aux[TROZOS];
-    char aux2[TROZOS];
-    int i,j,l;
+    char aux[MAXTAM];
+    int i, j, k;
     int pid = 0;
     int msqid;
     struct msqid_ds *buf = NULL;
@@ -88,7 +83,8 @@ int main(int argc, char* argv[]){
     }
 
     else if(argc != 3){
-        printf("Se debe pasar dos argumentos que seran fichero de origen y de destino\n");
+        printf("Se debe pasar al menos un argumento de entrada que será el fichero de origen. ");
+        printf("El segundo argumento (opcional) será el fichero de destino\n");
         exit(EXIT_FAILURE);
     }
 
@@ -141,13 +137,17 @@ int main(int argc, char* argv[]){
         		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
         		exit(EXIT_FAILURE);
     		}
-    		while(fscanf(fo, "%s", aux) > 0){
+    		memset(aux, 0, sizeof(aux));
+    		while(!feof(fo)){
+    		    fscanf(fo, "%c", aux);
+    		    for(j = 0; aux[j]  != ' ' && aux[j] != '\0' && aux[j] != '\n' && j < MAXTAM-1; j++){
+    		        fscanf(fo, "%c", aux+j+1);
+    		    }
+    		    memset(msg.aviso, 0, sizeof(msg.aviso));
     			msg.id = 1; /*Tipo de mensaje*/
 				msg.valor= 0;
 				strcpy (msg.aviso, aux);
-				printf("%s\n", msg.aviso);
-				msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
-				printf("%s\n", msg.aviso);
+				k = msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
 				memset(aux, 0, sizeof(aux));
 			}
     		fclose(fo);
@@ -162,11 +162,10 @@ int main(int argc, char* argv[]){
         		exit(EXIT_FAILURE);
     		}
     		for (k = buf->msg_qnum; k > 0; k--){
+    		    
     			msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 1, 0);
     		
-    			printf("%s\n", msg.aviso);
-			
-    			for(j=0;msg.aviso[j] != '\0';j++){
+    			for(j = 0; msg.aviso[j] != '\0'; j++){
 	    			if(msg.aviso[j] < 'a' || msg.aviso[j] > 'z')
     					continue;
     				msg.aviso[j] = (int) msg.aviso[j] - 32;
@@ -174,7 +173,6 @@ int main(int argc, char* argv[]){
 			
     			msg.id = 2;
     			msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
-    			printf("%s\n", msg.aviso);
     		}
     		exit(EXIT_SUCCESS);
     	}
@@ -197,14 +195,12 @@ int main(int argc, char* argv[]){
     		for (k = buf->msg_qnum; k > 0; k--){
 	    		msgrcv (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), 2, 0);
 			
-				printf("%s\n", msg.aviso);
-    		
-				for(j=0;msg.aviso[j] != '\0';j++){
-					aux2[j] = msg.aviso[j];  
+				for(j = 0; msg.aviso[j] != '\0';j++){
+					aux[j] = msg.aviso[j];  
 				}
 			
-				fprintf(fd, "%s", aux2);
-				memset(aux2, 0, sizeof(aux2));
+				fprintf(fd, "%s", aux);
+				memset(aux, 0, sizeof(aux));
 			}
 			fclose(fd);
 			msgctl (msqid, IPC_RMID, buf);
