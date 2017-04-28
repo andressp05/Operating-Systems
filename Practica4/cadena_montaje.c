@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <unistd.h>
+#include <math.h>
 
 /**
 * @brief Definicion de la clave
@@ -38,7 +39,7 @@
 /**
 * @brief Definicion del tamanyo maximo de lectura del fichero
 */
-#define MAXTAM 80
+#define MAXTAM 4096
 
 /**
  * @brief Estructura mensaje que contiene todos sus parametros necesarios para la
@@ -65,7 +66,9 @@ int main(int argc, char* argv[]){
     char *origen;
     char *destino;
     char aux[MAXTAM];
-    int i, j, k;
+    int numMensajes;
+    int tam;
+    int i, j, k, l;
     int pid = 0;
     int msqid;
     struct msqid_ds *buf = NULL;
@@ -137,16 +140,27 @@ int main(int argc, char* argv[]){
         		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
         		exit(EXIT_FAILURE);
     		}
+    		fseek(fo, 0, SEEK_END);
+    		tam = ftell(fo);
+    		msgctl (msqid, IPC_STAT, buf);
+    		numMensajes = buf->msg_qbytes/(sizeof(mensaje) - sizeof(long));
+    		if(numMensajes*(MAXTAM-1) < tam){
+    		    printf("El fichero ocupa más que la cola de mensajes\n");
+        		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
+        		exit(EXIT_FAILURE);
+    		}
+    		fseek(fo, 0, SEEK_SET);
     		memset(aux, 0, sizeof(aux));
-    		while(!feof(fo)){
-    		    fscanf(fo, "%c", aux);
-    		    for(j = 0; aux[j]  != ' ' && aux[j] != '\0' && aux[j] != '\n' && j < MAXTAM-1; j++){
-    		        fscanf(fo, "%c", aux+j+1);
+    		for(j = 0; j < numMensajes; j++){
+    		    if(j < numMensajes - 1){
+    		        fread(aux, ceil(tam/numMensajes), 1, fo);
+    		    } else {
+    		        fread(aux, tam-ceil(tam/numMensajes)*j, 1, fo);
     		    }
     		    memset(msg.aviso, 0, sizeof(msg.aviso));
     			msg.id = 1; /*Tipo de mensaje*/
 				msg.valor= 0;
-				strcpy (msg.aviso, aux);
+				strcpy(msg.aviso, aux);
 				k = msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
 				memset(aux, 0, sizeof(aux));
 			}

@@ -3,7 +3,7 @@ all: clean cadena_montaje dist
 CCFlags = -pedantic -g
 
 cadena_montaje: cadena_montaje.o
-	gcc -o cadena_montaje cadena_montaje.o
+	gcc -o cadena_montaje cadena_montaje.o -lm
 
 cadena_montaje.o: cadena_montaje.c
 	gcc $(CCFlags) -c  cadena_montaje.c
