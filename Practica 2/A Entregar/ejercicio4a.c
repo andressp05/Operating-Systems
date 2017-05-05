@@ -23,7 +23,6 @@
  * @brief Estructura params que contiene los parametros necesarios para que el
  * hilo multiplique un matriz por un numero entero
  */
-
 typedef struct _params{
     int dim; /*!< Dimension matriz*/
     int multiplicador; /*!< Escalar*/
