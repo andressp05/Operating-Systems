@@ -1,0 +1,101 @@
+\hypertarget{cadena__montaje_8c}{}\section{Referencia del Archivo cadena\+\_\+montaje.\+c}
+\label{cadena__montaje_8c}\index{cadena\+\_\+montaje.\+c@{cadena\+\_\+montaje.\+c}}
+
+
+Implementa el ejercicio \hyperlink{cadena__montaje_8c}{cadena\+\_\+montaje.\+c} de mensajes.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\\*
+{\ttfamily \#include $<$sys/msg.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$sys/shm.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+Dependencia gráfica adjunta para cadena\+\_\+montaje.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cadena__montaje_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__Mensaje}{\+\_\+\+Mensaje}
+\begin{DoxyCompactList}\small\item\em Estructura mensaje que contiene todos sus parametros necesarios para la realización del ejercicio con colas de mensajes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{cadena__montaje_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{K\+EY}~1300\hypertarget{cadena__montaje_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{}\label{cadena__montaje_8c_a8ae9d53f33f46cfcfcb9736e6351452a}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave. \end{DoxyCompactList}\item 
+\#define \hyperlink{cadena__montaje_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{F\+I\+L\+E\+K\+EY}~\char`\"{}/bin/cat\char`\"{}\hypertarget{cadena__montaje_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{}\label{cadena__montaje_8c_a68c15c5fb7f7c6f707903e6a46ab0557}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave de fichero. \end{DoxyCompactList}\item 
+\#define \hyperlink{cadena__montaje_8c_a1a96b801681f9111bd2f315be7254984}{N\+U\+M\+\_\+\+P\+R\+O\+C\+E\+S\+OS}~3\hypertarget{cadena__montaje_8c_a1a96b801681f9111bd2f315be7254984}{}\label{cadena__montaje_8c_a1a96b801681f9111bd2f315be7254984}
+
+\begin{DoxyCompactList}\small\item\em Definicion del numero de procesos hijos totales. \end{DoxyCompactList}\item 
+\#define \hyperlink{cadena__montaje_8c_a0e68c4ad6b4b3a349afa80ebbbdffb13}{M\+A\+X\+T\+AM}~4096\hypertarget{cadena__montaje_8c_a0e68c4ad6b4b3a349afa80ebbbdffb13}{}\label{cadena__montaje_8c_a0e68c4ad6b4b3a349afa80ebbbdffb13}
+
+\begin{DoxyCompactList}\small\item\em Definicion del tamanyo maximo de lectura del fichero. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}typedefs\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__Mensaje}{\+\_\+\+Mensaje} \hyperlink{cadena__montaje_8c_a59d8c217fe65b74ca325b7796b8d5e7c}{mensaje}\hypertarget{cadena__montaje_8c_a59d8c217fe65b74ca325b7796b8d5e7c}{}\label{cadena__montaje_8c_a59d8c217fe65b74ca325b7796b8d5e7c}
+
+\begin{DoxyCompactList}\small\item\em Estructura mensaje que contiene todos sus parametros necesarios para la realización del ejercicio con colas de mensajes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{cadena__montaje_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion principal que pide un fichero de entrada y otro de salida y realiza el paso de mensajes pedidos \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio \hyperlink{cadena__montaje_8c}{cadena\+\_\+montaje.\+c} de mensajes. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+8/04/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{cadena\+\_\+montaje.\+c@{cadena\+\_\+montaje.\+c}!main@{main}}
+\index{main@{main}!cadena\+\_\+montaje.\+c@{cadena\+\_\+montaje.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{cadena__montaje_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{cadena__montaje_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+funcion principal que pide un fichero de entrada y otro de salida y realiza el paso de mensajes pedidos 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito (OK) o fracaso (E\+R\+R\+OR) 
+\end{DoxyReturn}

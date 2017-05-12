@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>Practica 4: Referencia del Archivo carrera.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Practica 4
+   </div>
+   <div id="projectbrief">Andres Salas Peña y Antonio Martín Masuda</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+      <li><a href="globals.html"><span>Miembros&#160;de&#160;los&#160;ficheros</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Clases</a> &#124;
+<a href="#define-members">'defines'</a> &#124;
+<a href="#typedef-members">'typedefs'</a> &#124;
+<a href="#func-members">Funciones</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo carrera.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementa el ejercicio <a class="el" href="carrera_8c.html" title="Implementa el ejercicio carrera.c que engloba todos los contenidos. ">carrera.c</a> que engloba todos los contenidos.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;sys/wait.h&gt;</code><br />
+<code>#include &lt;signal.h&gt;</code><br />
+<code>#include &lt;sys/shm.h&gt;</code><br />
+<code>#include &lt;sys/sem.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;sys/ipc.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;sys/msg.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Dependencia gráfica adjunta para carrera.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="carrera_8c__incl.png" border="0" usemap="#carrera_8c" alt=""/></div>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Apuesta.html">_Apuesta</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura apuesta.  <a href="struct__Apuesta.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Caballo.html">_Caballo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura caballo.  <a href="struct__Caballo.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Carrera.html">_Carrera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura carrera.  <a href="struct__Carrera.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Ventanilla.html">_Ventanilla</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura ventanilla.  <a href="struct__Ventanilla.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Monitor.html">_Monitor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura monitor.  <a href="struct__Monitor.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+'defines'</h2></td></tr>
+<tr class="memitem:abc8a865f8ec2f1343ebeded8e37b47dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc8a865f8ec2f1343ebeded8e37b47dc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#abc8a865f8ec2f1343ebeded8e37b47dc">LEER</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:abc8a865f8ec2f1343ebeded8e37b47dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de LEER en la tuberia. <br /></td></tr>
+<tr class="separator:abc8a865f8ec2f1343ebeded8e37b47dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fab98d80466569d31ccf6a35b2c78a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fab98d80466569d31ccf6a35b2c78a6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a1fab98d80466569d31ccf6a35b2c78a6">ESCRIBIR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a1fab98d80466569d31ccf6a35b2c78a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de ESCRIBIR en la tuberia. <br /></td></tr>
+<tr class="separator:a1fab98d80466569d31ccf6a35b2c78a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fe83ac76edc595f6b98cd4a4127aed5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fe83ac76edc595f6b98cd4a4127aed5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a8fe83ac76edc595f6b98cd4a4127aed5">ERROR</a>&#160;&#160;&#160;-1</td></tr>
+<tr class="memdesc:a8fe83ac76edc595f6b98cd4a4127aed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion del error. <br /></td></tr>
+<tr class="separator:a8fe83ac76edc595f6b98cd4a4127aed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a336154a96b877a7e720bf398457f8fc3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a336154a96b877a7e720bf398457f8fc3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a336154a96b877a7e720bf398457f8fc3">EMPEZADA</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a336154a96b877a7e720bf398457f8fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de estado empezado de la carrera. <br /></td></tr>
+<tr class="separator:a336154a96b877a7e720bf398457f8fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c16cf7009f1e9d88b0d2eedd1e3577"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87c16cf7009f1e9d88b0d2eedd1e3577"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a87c16cf7009f1e9d88b0d2eedd1e3577">FINALIZADA</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a87c16cf7009f1e9d88b0d2eedd1e3577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de estado finalizado de la carrera. <br /></td></tr>
+<tr class="separator:a87c16cf7009f1e9d88b0d2eedd1e3577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a392fb874e547e582e9c66a08a1f23326"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a392fb874e547e582e9c66a08a1f23326"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a392fb874e547e582e9c66a08a1f23326">MAX</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:a392fb874e547e582e9c66a08a1f23326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion del maximo de apostadores,caballos e hilos. <br /></td></tr>
+<tr class="separator:a392fb874e547e582e9c66a08a1f23326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626740eaaf3c55c02bcbf15f9bc5d79d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a626740eaaf3c55c02bcbf15f9bc5d79d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a626740eaaf3c55c02bcbf15f9bc5d79d">TIEMPO</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:a626740eaaf3c55c02bcbf15f9bc5d79d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion del tiempo de espera. <br /></td></tr>
+<tr class="separator:a626740eaaf3c55c02bcbf15f9bc5d79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae9d53f33f46cfcfcb9736e6351452a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ae9d53f33f46cfcfcb9736e6351452a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a8ae9d53f33f46cfcfcb9736e6351452a">KEY</a>&#160;&#160;&#160;13</td></tr>
+<tr class="memdesc:a8ae9d53f33f46cfcfcb9736e6351452a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de la clave. <br /></td></tr>
+<tr class="separator:a8ae9d53f33f46cfcfcb9736e6351452a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bfa179383ce9db9080131d1ac6fe2f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bfa179383ce9db9080131d1ac6fe2f7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a3bfa179383ce9db9080131d1ac6fe2f7">KEYSHM</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:a3bfa179383ce9db9080131d1ac6fe2f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de la clave de memoria compartida. <br /></td></tr>
+<tr class="separator:a3bfa179383ce9db9080131d1ac6fe2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c15c5fb7f7c6f707903e6a46ab0557"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68c15c5fb7f7c6f707903e6a46ab0557"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a68c15c5fb7f7c6f707903e6a46ab0557">FILEKEY</a>&#160;&#160;&#160;&quot;/bin/cat&quot;</td></tr>
+<tr class="memdesc:a68c15c5fb7f7c6f707903e6a46ab0557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de la clave de fichero. <br /></td></tr>
+<tr class="separator:a68c15c5fb7f7c6f707903e6a46ab0557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada831b9e37399bf906c8184a888e28cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada831b9e37399bf906c8184a888e28cd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#ada831b9e37399bf906c8184a888e28cd">SEMKEY</a>&#160;&#160;&#160;75798</td></tr>
+<tr class="memdesc:ada831b9e37399bf906c8184a888e28cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definicion de la clave del semaforo. <br /></td></tr>
+<tr class="separator:ada831b9e37399bf906c8184a888e28cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+'typedefs'</h2></td></tr>
+<tr class="memitem:ae7b6ac6fb6245174285b53c4dcd06baf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7b6ac6fb6245174285b53c4dcd06baf"></a>
+typedef struct <a class="el" href="struct__Apuesta.html">_Apuesta</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#ae7b6ac6fb6245174285b53c4dcd06baf">apuesta</a></td></tr>
+<tr class="memdesc:ae7b6ac6fb6245174285b53c4dcd06baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura apuesta. <br /></td></tr>
+<tr class="separator:ae7b6ac6fb6245174285b53c4dcd06baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9700d9b08f47d213e0daf7317219022e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9700d9b08f47d213e0daf7317219022e"></a>
+typedef struct <a class="el" href="struct__Caballo.html">_Caballo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a9700d9b08f47d213e0daf7317219022e">caballo</a></td></tr>
+<tr class="memdesc:a9700d9b08f47d213e0daf7317219022e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura caballo. <br /></td></tr>
+<tr class="separator:a9700d9b08f47d213e0daf7317219022e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33c95e52916a47e1884db1151b066166"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33c95e52916a47e1884db1151b066166"></a>
+typedef struct <a class="el" href="struct__Carrera.html">_Carrera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a33c95e52916a47e1884db1151b066166">carrera</a></td></tr>
+<tr class="memdesc:a33c95e52916a47e1884db1151b066166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura carrera. <br /></td></tr>
+<tr class="separator:a33c95e52916a47e1884db1151b066166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40b2b775d5613e9a1371888709292531"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40b2b775d5613e9a1371888709292531"></a>
+typedef struct <a class="el" href="struct__Ventanilla.html">_Ventanilla</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a40b2b775d5613e9a1371888709292531">args</a></td></tr>
+<tr class="memdesc:a40b2b775d5613e9a1371888709292531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura ventanilla. <br /></td></tr>
+<tr class="separator:a40b2b775d5613e9a1371888709292531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34274303a1802e6239264313b2bc30c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34274303a1802e6239264313b2bc30c3"></a>
+typedef struct <a class="el" href="struct__Monitor.html">_Monitor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a34274303a1802e6239264313b2bc30c3">monitor</a></td></tr>
+<tr class="memdesc:a34274303a1802e6239264313b2bc30c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura monitor. <br /></td></tr>
+<tr class="separator:a34274303a1802e6239264313b2bc30c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a83f626771b5b3808daffc8c86c50ad9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a83f626771b5b3808daffc8c86c50ad9a">dado</a> (int pos, int maxpos)</td></tr>
+<tr class="memdesc:a83f626771b5b3808daffc8c86c50ad9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que calcula la tirada aleatoria en funcion de la posicion del caballo (remontadora, ganadora, normal)  <a href="#a83f626771b5b3808daffc8c86c50ad9a">Más...</a><br /></td></tr>
+<tr class="separator:a83f626771b5b3808daffc8c86c50ad9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964aa7f489f4fa480c0b2103dc01b517"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a964aa7f489f4fa480c0b2103dc01b517">captura_SIGUSR1</a> (int sig)</td></tr>
+<tr class="memdesc:a964aa7f489f4fa480c0b2103dc01b517"><td class="mdescLeft">&#160;</td><td class="mdescRight">manejador de la senyal SIGUSR1  <a href="#a964aa7f489f4fa480c0b2103dc01b517">Más...</a><br /></td></tr>
+<tr class="separator:a964aa7f489f4fa480c0b2103dc01b517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c063b98072b4d19353dc9bf400a7d6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a7c063b98072b4d19353dc9bf400a7d6e">captura_SIGUSR2</a> (int sig)</td></tr>
+<tr class="memdesc:a7c063b98072b4d19353dc9bf400a7d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">manejador de la senyal SIGUSR2  <a href="#a7c063b98072b4d19353dc9bf400a7d6e">Más...</a><br /></td></tr>
+<tr class="separator:a7c063b98072b4d19353dc9bf400a7d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5376d90318f7ed805a6672be74629b25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a5376d90318f7ed805a6672be74629b25">captura_SIGINT</a> (int sig)</td></tr>
+<tr class="memdesc:a5376d90318f7ed805a6672be74629b25"><td class="mdescLeft">&#160;</td><td class="mdescRight">manejador de la senyal SIGINT  <a href="#a5376d90318f7ed805a6672be74629b25">Más...</a><br /></td></tr>
+<tr class="separator:a5376d90318f7ed805a6672be74629b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeb61ab9116bb2034845d9f1f3acc810"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#afeb61ab9116bb2034845d9f1f3acc810">captura_SIGQUIT</a> (int sig)</td></tr>
+<tr class="memdesc:afeb61ab9116bb2034845d9f1f3acc810"><td class="mdescLeft">&#160;</td><td class="mdescRight">manejador de la senyal SIGQUIT  <a href="#afeb61ab9116bb2034845d9f1f3acc810">Más...</a><br /></td></tr>
+<tr class="separator:afeb61ab9116bb2034845d9f1f3acc810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bb83c437a2f9ee43d6c53832837513e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a8bb83c437a2f9ee43d6c53832837513e">ventanilla</a> (void *datos)</td></tr>
+<tr class="memdesc:a8bb83c437a2f9ee43d6c53832837513e"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que se encarga del manejo de las ventanillas  <a href="#a8bb83c437a2f9ee43d6c53832837513e">Más...</a><br /></td></tr>
+<tr class="separator:a8bb83c437a2f9ee43d6c53832837513e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7e84335952f7e2aed47abcb101eaab7"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#ae7e84335952f7e2aed47abcb101eaab7">pantalla</a> (void *arg)</td></tr>
+<tr class="memdesc:ae7e84335952f7e2aed47abcb101eaab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que se encarga del manejo del monitor  <a href="#ae7e84335952f7e2aed47abcb101eaab7">Más...</a><br /></td></tr>
+<tr class="separator:ae7e84335952f7e2aed47abcb101eaab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6355e8351cb70809af3820ac0ba09210"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a6355e8351cb70809af3820ac0ba09210">gestor</a> (int shmid, int numCaballos, int numApostadores, int ventanillas, <a class="el" href="carrera_8c.html#a33c95e52916a47e1884db1151b066166">carrera</a> caballos[<a class="el" href="carrera_8c.html#a392fb874e547e582e9c66a08a1f23326">MAX</a>])</td></tr>
+<tr class="memdesc:a6355e8351cb70809af3820ac0ba09210"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que maneja el gestor  <a href="#a6355e8351cb70809af3820ac0ba09210">Más...</a><br /></td></tr>
+<tr class="separator:a6355e8351cb70809af3820ac0ba09210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fd75a1b94e82a20948426fe10321d90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a3fd75a1b94e82a20948426fe10321d90">apostador</a> (int msqid, int numCaballos, int numApostadores)</td></tr>
+<tr class="memdesc:a3fd75a1b94e82a20948426fe10321d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que maneja los apostadores  <a href="#a3fd75a1b94e82a20948426fe10321d90">Más...</a><br /></td></tr>
+<tr class="separator:a3fd75a1b94e82a20948426fe10321d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91a3bbcc7eb26e8695255b2795d6e46f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a91a3bbcc7eb26e8695255b2795d6e46f">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a91a3bbcc7eb26e8695255b2795d6e46f"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion principal que llama a todas las auxiliares  <a href="#a91a3bbcc7eb26e8695255b2795d6e46f">Más...</a><br /></td></tr>
+<tr class="separator:a91a3bbcc7eb26e8695255b2795d6e46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e9a09017727a6af95e993c208850ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#ad9e9a09017727a6af95e993c208850ca">gestor</a> (int shmid, int numCaballos, int numApostadores, int ventanillas, <a class="el" href="carrera_8c.html#a33c95e52916a47e1884db1151b066166">carrera</a> *caballos)</td></tr>
+<tr class="memdesc:ad9e9a09017727a6af95e993c208850ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">funcion que maneja el gestor  <a href="#ad9e9a09017727a6af95e993c208850ca">Más...</a><br /></td></tr>
+<tr class="separator:ad9e9a09017727a6af95e993c208850ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a876d08c1d21086e4fd228744da10d028"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="carrera_8c.html#a876d08c1d21086e4fd228744da10d028">estado</a> = -1</td></tr>
+<tr class="separator:a876d08c1d21086e4fd228744da10d028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Implementa el ejercicio <a class="el" href="carrera_8c.html" title="Implementa el ejercicio carrera.c que engloba todos los contenidos. ">carrera.c</a> que engloba todos los contenidos. </p>
+<dl class="section author"><dt>Autor</dt><dd>Andres Salas <a href="#" onclick="location.href='mai'+'lto:'+'and'+'re'+'s.s'+'al'+'as@'+'es'+'tud'+'ia'+'nte'+'.u'+'am.'+'es'; return false;">andre<span style="display: none;">.nosp@m.</span>s.sa<span style="display: none;">.nosp@m.</span>las@e<span style="display: none;">.nosp@m.</span>stud<span style="display: none;">.nosp@m.</span>iante<span style="display: none;">.nosp@m.</span>.uam<span style="display: none;">.nosp@m.</span>.es</a> </dd>
+<dd>
+Antonio Martin <a href="#" onclick="location.href='mai'+'lto:'+'ant'+'on'+'io.'+'ma'+'rti'+'nm'+'asu'+'da'+'@es'+'tu'+'dia'+'nt'+'e.u'+'am'+'.es'; return false;">anton<span style="display: none;">.nosp@m.</span>io.m<span style="display: none;">.nosp@m.</span>artin<span style="display: none;">.nosp@m.</span>masu<span style="display: none;">.nosp@m.</span>da@es<span style="display: none;">.nosp@m.</span>tudi<span style="display: none;">.nosp@m.</span>ante.<span style="display: none;">.nosp@m.</span>uam.<span style="display: none;">.nosp@m.</span>es</a> </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Grupo 2202 </dd></dl>
+<dl class="section version"><dt>Versión</dt><dd>1.0 </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>12/05/2017 </dd></dl>
+</div><h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="a3fd75a1b94e82a20948426fe10321d90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apostador </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>msqid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numCaballos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numApostadores</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que maneja los apostadores </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msqid</td><td>id del mensaje </td></tr>
+    <tr><td class="paramname">numCaballos</td><td>numero de caballos </td></tr>
+    <tr><td class="paramname">numApostadores</td><td>numero de apostadores </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5376d90318f7ed805a6672be74629b25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void captura_SIGINT </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>manejador de la senyal SIGINT </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sig</td><td>senyal a capturar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afeb61ab9116bb2034845d9f1f3acc810"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void captura_SIGQUIT </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>manejador de la senyal SIGQUIT </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sig</td><td>senyal a capturar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a964aa7f489f4fa480c0b2103dc01b517"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void captura_SIGUSR1 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>manejador de la senyal SIGUSR1 </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sig</td><td>senyal a capturar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c063b98072b4d19353dc9bf400a7d6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void captura_SIGUSR2 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>manejador de la senyal SIGUSR2 </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sig</td><td>senyal a capturar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a83f626771b5b3808daffc8c86c50ad9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dado </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxpos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que calcula la tirada aleatoria en funcion de la posicion del caballo (remontadora, ganadora, normal) </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>posicion del caballo </td></tr>
+    <tr><td class="paramname">maxpos</td><td>posicion ultimo caballo </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>el valor obtenido </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6355e8351cb70809af3820ac0ba09210"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gestor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>shmid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numCaballos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numApostadores</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ventanillas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="carrera_8c.html#a33c95e52916a47e1884db1151b066166">carrera</a>&#160;</td>
+          <td class="paramname"><em>caballos</em>[MAX]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que maneja el gestor </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shmid</td><td>id memoria compartida </td></tr>
+    <tr><td class="paramname">numCaballos</td><td>numero de caballos </td></tr>
+    <tr><td class="paramname">numApostadores</td><td>numero de apostadores </td></tr>
+    <tr><td class="paramname">ventanillas</td><td>numero de ventanillas </td></tr>
+    <tr><td class="paramname">caballos</td><td>array de caballos </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad9e9a09017727a6af95e993c208850ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gestor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>shmid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numCaballos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numApostadores</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ventanillas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="carrera_8c.html#a33c95e52916a47e1884db1151b066166">carrera</a> *&#160;</td>
+          <td class="paramname"><em>caballos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que maneja el gestor </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shmid</td><td>id memoria compartida </td></tr>
+    <tr><td class="paramname">numCaballos</td><td>numero de caballos </td></tr>
+    <tr><td class="paramname">numApostadores</td><td>numero de apostadores </td></tr>
+    <tr><td class="paramname">ventanillas</td><td>numero de ventanillas </td></tr>
+    <tr><td class="paramname">caballos</td><td>array de caballos </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a91a3bbcc7eb26e8695255b2795d6e46f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion principal que llama a todas las auxiliares </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>contiene el número de parámetros totales pasados </td></tr>
+    <tr><td class="paramname">argv</td><td>contiene los parámetros pasados por el usuario </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>int: valor de exito (OK) o fracaso (ERROR) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7e84335952f7e2aed47abcb101eaab7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * pantalla </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>arg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que se encarga del manejo del monitor </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*arg</td><td>estructura necesaria para el manejo del monitor</td></tr>
+    <tr><td class="paramname">arg</td><td>estructura necesaria para el manejo del monitor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8bb83c437a2f9ee43d6c53832837513e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * ventanilla </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>datos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>funcion que se encarga del manejo de las ventanillas </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*datos</td><td>estructura necesaria para el manejo de las ventanillas </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las variables</h2>
+<a class="anchor" id="a876d08c1d21086e4fd228744da10d028"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int estado = -1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Estado de la carrera NO_EMPEZADA </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

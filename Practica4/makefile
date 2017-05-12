@@ -18,4 +18,4 @@ clean:
 	rm -rf *.o cadena_montaje carrera *.zip
 
 dist:
-	zip  G2202_P03_5.zip *.h *c makefile Doxyfile *.txt Informe.pdf html/* latex/* html/search/*
+	zip  G2202_P03_4.zip *.h *c makefile Doxyfile *.txt Informe.pdf html/* latex/* html/search/*

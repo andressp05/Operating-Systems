@@ -1,0 +1,374 @@
+\hypertarget{carrera_8c}{}\section{Referencia del Archivo carrera.\+c}
+\label{carrera_8c}\index{carrera.\+c@{carrera.\+c}}
+
+
+Implementa el ejercicio \hyperlink{carrera_8c}{carrera.\+c} que engloba todos los contenidos.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/wait.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$sys/shm.\+h$>$}\\*
+{\ttfamily \#include $<$sys/sem.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$sys/msg.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+Dependencia gráfica adjunta para carrera.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{carrera_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__Apuesta}{\+\_\+\+Apuesta}
+\begin{DoxyCompactList}\small\item\em Estructura apuesta. \end{DoxyCompactList}\item 
+struct \hyperlink{struct__Caballo}{\+\_\+\+Caballo}
+\begin{DoxyCompactList}\small\item\em Estructura caballo. \end{DoxyCompactList}\item 
+struct \hyperlink{struct__Carrera}{\+\_\+\+Carrera}
+\begin{DoxyCompactList}\small\item\em Estructura carrera. \end{DoxyCompactList}\item 
+struct \hyperlink{struct__Ventanilla}{\+\_\+\+Ventanilla}
+\begin{DoxyCompactList}\small\item\em Estructura ventanilla. \end{DoxyCompactList}\item 
+struct \hyperlink{struct__Monitor}{\+\_\+\+Monitor}
+\begin{DoxyCompactList}\small\item\em Estructura monitor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}defines\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{carrera_8c_abc8a865f8ec2f1343ebeded8e37b47dc}{L\+E\+ER}~0\hypertarget{carrera_8c_abc8a865f8ec2f1343ebeded8e37b47dc}{}\label{carrera_8c_abc8a865f8ec2f1343ebeded8e37b47dc}
+
+\begin{DoxyCompactList}\small\item\em Definicion de L\+E\+ER en la tuberia. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a1fab98d80466569d31ccf6a35b2c78a6}{E\+S\+C\+R\+I\+B\+IR}~1\hypertarget{carrera_8c_a1fab98d80466569d31ccf6a35b2c78a6}{}\label{carrera_8c_a1fab98d80466569d31ccf6a35b2c78a6}
+
+\begin{DoxyCompactList}\small\item\em Definicion de E\+S\+C\+R\+I\+B\+IR en la tuberia. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{E\+R\+R\+OR}~-\/1\hypertarget{carrera_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{}\label{carrera_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\begin{DoxyCompactList}\small\item\em Definicion del error. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a336154a96b877a7e720bf398457f8fc3}{E\+M\+P\+E\+Z\+A\+DA}~0\hypertarget{carrera_8c_a336154a96b877a7e720bf398457f8fc3}{}\label{carrera_8c_a336154a96b877a7e720bf398457f8fc3}
+
+\begin{DoxyCompactList}\small\item\em Definicion de estado empezado de la carrera. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a87c16cf7009f1e9d88b0d2eedd1e3577}{F\+I\+N\+A\+L\+I\+Z\+A\+DA}~1\hypertarget{carrera_8c_a87c16cf7009f1e9d88b0d2eedd1e3577}{}\label{carrera_8c_a87c16cf7009f1e9d88b0d2eedd1e3577}
+
+\begin{DoxyCompactList}\small\item\em Definicion de estado finalizado de la carrera. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a392fb874e547e582e9c66a08a1f23326}{M\+AX}~10\hypertarget{carrera_8c_a392fb874e547e582e9c66a08a1f23326}{}\label{carrera_8c_a392fb874e547e582e9c66a08a1f23326}
+
+\begin{DoxyCompactList}\small\item\em Definicion del maximo de apostadores,caballos e hilos. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a626740eaaf3c55c02bcbf15f9bc5d79d}{T\+I\+E\+M\+PO}~15\hypertarget{carrera_8c_a626740eaaf3c55c02bcbf15f9bc5d79d}{}\label{carrera_8c_a626740eaaf3c55c02bcbf15f9bc5d79d}
+
+\begin{DoxyCompactList}\small\item\em Definicion del tiempo de espera. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{K\+EY}~13\hypertarget{carrera_8c_a8ae9d53f33f46cfcfcb9736e6351452a}{}\label{carrera_8c_a8ae9d53f33f46cfcfcb9736e6351452a}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a3bfa179383ce9db9080131d1ac6fe2f7}{K\+E\+Y\+S\+HM}~14\hypertarget{carrera_8c_a3bfa179383ce9db9080131d1ac6fe2f7}{}\label{carrera_8c_a3bfa179383ce9db9080131d1ac6fe2f7}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave de memoria compartida. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{F\+I\+L\+E\+K\+EY}~\char`\"{}/bin/cat\char`\"{}\hypertarget{carrera_8c_a68c15c5fb7f7c6f707903e6a46ab0557}{}\label{carrera_8c_a68c15c5fb7f7c6f707903e6a46ab0557}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave de fichero. \end{DoxyCompactList}\item 
+\#define \hyperlink{carrera_8c_ada831b9e37399bf906c8184a888e28cd}{S\+E\+M\+K\+EY}~75798\hypertarget{carrera_8c_ada831b9e37399bf906c8184a888e28cd}{}\label{carrera_8c_ada831b9e37399bf906c8184a888e28cd}
+
+\begin{DoxyCompactList}\small\item\em Definicion de la clave del semaforo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\textquotesingle{}typedefs\textquotesingle{}}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__Apuesta}{\+\_\+\+Apuesta} \hyperlink{carrera_8c_ae7b6ac6fb6245174285b53c4dcd06baf}{apuesta}\hypertarget{carrera_8c_ae7b6ac6fb6245174285b53c4dcd06baf}{}\label{carrera_8c_ae7b6ac6fb6245174285b53c4dcd06baf}
+
+\begin{DoxyCompactList}\small\item\em Estructura apuesta. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct__Caballo}{\+\_\+\+Caballo} \hyperlink{carrera_8c_a9700d9b08f47d213e0daf7317219022e}{caballo}\hypertarget{carrera_8c_a9700d9b08f47d213e0daf7317219022e}{}\label{carrera_8c_a9700d9b08f47d213e0daf7317219022e}
+
+\begin{DoxyCompactList}\small\item\em Estructura caballo. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct__Carrera}{\+\_\+\+Carrera} \hyperlink{carrera_8c_a33c95e52916a47e1884db1151b066166}{carrera}\hypertarget{carrera_8c_a33c95e52916a47e1884db1151b066166}{}\label{carrera_8c_a33c95e52916a47e1884db1151b066166}
+
+\begin{DoxyCompactList}\small\item\em Estructura carrera. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct__Ventanilla}{\+\_\+\+Ventanilla} \hyperlink{carrera_8c_a40b2b775d5613e9a1371888709292531}{args}\hypertarget{carrera_8c_a40b2b775d5613e9a1371888709292531}{}\label{carrera_8c_a40b2b775d5613e9a1371888709292531}
+
+\begin{DoxyCompactList}\small\item\em Estructura ventanilla. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct__Monitor}{\+\_\+\+Monitor} \hyperlink{carrera_8c_a34274303a1802e6239264313b2bc30c3}{monitor}\hypertarget{carrera_8c_a34274303a1802e6239264313b2bc30c3}{}\label{carrera_8c_a34274303a1802e6239264313b2bc30c3}
+
+\begin{DoxyCompactList}\small\item\em Estructura monitor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{carrera_8c_a83f626771b5b3808daffc8c86c50ad9a}{dado} (int pos, int maxpos)
+\begin{DoxyCompactList}\small\item\em funcion que calcula la tirada aleatoria en funcion de la posicion del caballo (remontadora, ganadora, normal) \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a964aa7f489f4fa480c0b2103dc01b517}{captura\+\_\+\+S\+I\+G\+U\+S\+R1} (int sig)
+\begin{DoxyCompactList}\small\item\em manejador de la senyal S\+I\+G\+U\+S\+R1 \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a7c063b98072b4d19353dc9bf400a7d6e}{captura\+\_\+\+S\+I\+G\+U\+S\+R2} (int sig)
+\begin{DoxyCompactList}\small\item\em manejador de la senyal S\+I\+G\+U\+S\+R2 \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a5376d90318f7ed805a6672be74629b25}{captura\+\_\+\+S\+I\+G\+I\+NT} (int sig)
+\begin{DoxyCompactList}\small\item\em manejador de la senyal S\+I\+G\+I\+NT \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_afeb61ab9116bb2034845d9f1f3acc810}{captura\+\_\+\+S\+I\+G\+Q\+U\+IT} (int sig)
+\begin{DoxyCompactList}\small\item\em manejador de la senyal S\+I\+G\+Q\+U\+IT \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{carrera_8c_a8bb83c437a2f9ee43d6c53832837513e}{ventanilla} (void $\ast$datos)
+\begin{DoxyCompactList}\small\item\em funcion que se encarga del manejo de las ventanillas \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{carrera_8c_ae7e84335952f7e2aed47abcb101eaab7}{pantalla} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em funcion que se encarga del manejo del monitor \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a6355e8351cb70809af3820ac0ba09210}{gestor} (int shmid, int num\+Caballos, int num\+Apostadores, int ventanillas, \hyperlink{carrera_8c_a33c95e52916a47e1884db1151b066166}{carrera} caballos\mbox{[}\hyperlink{carrera_8c_a392fb874e547e582e9c66a08a1f23326}{M\+AX}\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion que maneja el gestor \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a3fd75a1b94e82a20948426fe10321d90}{apostador} (int msqid, int num\+Caballos, int num\+Apostadores)
+\begin{DoxyCompactList}\small\item\em funcion que maneja los apostadores \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_a91a3bbcc7eb26e8695255b2795d6e46f}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em funcion principal que llama a todas las auxiliares \end{DoxyCompactList}\item 
+void \hyperlink{carrera_8c_ad9e9a09017727a6af95e993c208850ca}{gestor} (int shmid, int num\+Caballos, int num\+Apostadores, int ventanillas, \hyperlink{carrera_8c_a33c95e52916a47e1884db1151b066166}{carrera} $\ast$caballos)
+\begin{DoxyCompactList}\small\item\em funcion que maneja el gestor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{carrera_8c_a876d08c1d21086e4fd228744da10d028}{estado} = -\/1
+\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Implementa el ejercicio \hyperlink{carrera_8c}{carrera.\+c} que engloba todos los contenidos. 
+
+\begin{DoxyAuthor}{Autor}
+Andres Salas \href{mailto:andres.salas@estudiante.uam.es}{\tt andres.\+salas@estudiante.\+uam.\+es} 
+
+Antonio Martin \href{mailto:antonio.martinmasuda@estudiante.uam.es}{\tt antonio.\+martinmasuda@estudiante.\+uam.\+es} 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Nota}
+Grupo 2202 
+\end{DoxyNote}
+\begin{DoxyVersion}{Versión}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Fecha}
+12/05/2017 
+\end{DoxyDate}
+
+
+\subsection{Documentación de las funciones}
+\index{carrera.\+c@{carrera.\+c}!apostador@{apostador}}
+\index{apostador@{apostador}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{apostador(int msqid, int num\+Caballos, int num\+Apostadores)}{apostador(int msqid, int numCaballos, int numApostadores)}}]{\setlength{\rightskip}{0pt plus 5cm}void apostador (
+\begin{DoxyParamCaption}
+\item[{int}]{msqid, }
+\item[{int}]{num\+Caballos, }
+\item[{int}]{num\+Apostadores}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a3fd75a1b94e82a20948426fe10321d90}{}\label{carrera_8c_a3fd75a1b94e82a20948426fe10321d90}
+
+
+funcion que maneja los apostadores 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em msqid} & id del mensaje \\
+\hline
+{\em num\+Caballos} & numero de caballos \\
+\hline
+{\em num\+Apostadores} & numero de apostadores \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!captura\+\_\+\+S\+I\+G\+I\+NT@{captura\+\_\+\+S\+I\+G\+I\+NT}}
+\index{captura\+\_\+\+S\+I\+G\+I\+NT@{captura\+\_\+\+S\+I\+G\+I\+NT}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{captura\+\_\+\+S\+I\+G\+I\+N\+T(int sig)}{captura_SIGINT(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void captura\+\_\+\+S\+I\+G\+I\+NT (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a5376d90318f7ed805a6672be74629b25}{}\label{carrera_8c_a5376d90318f7ed805a6672be74629b25}
+
+
+manejador de la senyal S\+I\+G\+I\+NT 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & senyal a capturar. \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!captura\+\_\+\+S\+I\+G\+Q\+U\+IT@{captura\+\_\+\+S\+I\+G\+Q\+U\+IT}}
+\index{captura\+\_\+\+S\+I\+G\+Q\+U\+IT@{captura\+\_\+\+S\+I\+G\+Q\+U\+IT}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{captura\+\_\+\+S\+I\+G\+Q\+U\+I\+T(int sig)}{captura_SIGQUIT(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void captura\+\_\+\+S\+I\+G\+Q\+U\+IT (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_afeb61ab9116bb2034845d9f1f3acc810}{}\label{carrera_8c_afeb61ab9116bb2034845d9f1f3acc810}
+
+
+manejador de la senyal S\+I\+G\+Q\+U\+IT 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & senyal a capturar. \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!captura\+\_\+\+S\+I\+G\+U\+S\+R1@{captura\+\_\+\+S\+I\+G\+U\+S\+R1}}
+\index{captura\+\_\+\+S\+I\+G\+U\+S\+R1@{captura\+\_\+\+S\+I\+G\+U\+S\+R1}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{captura\+\_\+\+S\+I\+G\+U\+S\+R1(int sig)}{captura_SIGUSR1(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void captura\+\_\+\+S\+I\+G\+U\+S\+R1 (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a964aa7f489f4fa480c0b2103dc01b517}{}\label{carrera_8c_a964aa7f489f4fa480c0b2103dc01b517}
+
+
+manejador de la senyal S\+I\+G\+U\+S\+R1 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & senyal a capturar. \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!captura\+\_\+\+S\+I\+G\+U\+S\+R2@{captura\+\_\+\+S\+I\+G\+U\+S\+R2}}
+\index{captura\+\_\+\+S\+I\+G\+U\+S\+R2@{captura\+\_\+\+S\+I\+G\+U\+S\+R2}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{captura\+\_\+\+S\+I\+G\+U\+S\+R2(int sig)}{captura_SIGUSR2(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void captura\+\_\+\+S\+I\+G\+U\+S\+R2 (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a7c063b98072b4d19353dc9bf400a7d6e}{}\label{carrera_8c_a7c063b98072b4d19353dc9bf400a7d6e}
+
+
+manejador de la senyal S\+I\+G\+U\+S\+R2 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em sig} & senyal a capturar. \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!dado@{dado}}
+\index{dado@{dado}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{dado(int pos, int maxpos)}{dado(int pos, int maxpos)}}]{\setlength{\rightskip}{0pt plus 5cm}int dado (
+\begin{DoxyParamCaption}
+\item[{int}]{pos, }
+\item[{int}]{maxpos}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a83f626771b5b3808daffc8c86c50ad9a}{}\label{carrera_8c_a83f626771b5b3808daffc8c86c50ad9a}
+
+
+funcion que calcula la tirada aleatoria en funcion de la posicion del caballo (remontadora, ganadora, normal) 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em pos} & posicion del caballo \\
+\hline
+{\em maxpos} & posicion ultimo caballo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+el valor obtenido 
+\end{DoxyReturn}
+\index{carrera.\+c@{carrera.\+c}!gestor@{gestor}}
+\index{gestor@{gestor}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{gestor(int shmid, int num\+Caballos, int num\+Apostadores, int ventanillas, carrera caballos[M\+AX])}{gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, carrera caballos[MAX])}}]{\setlength{\rightskip}{0pt plus 5cm}void gestor (
+\begin{DoxyParamCaption}
+\item[{int}]{shmid, }
+\item[{int}]{num\+Caballos, }
+\item[{int}]{num\+Apostadores, }
+\item[{int}]{ventanillas, }
+\item[{{\bf carrera}}]{caballos\mbox{[}\+M\+A\+X\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a6355e8351cb70809af3820ac0ba09210}{}\label{carrera_8c_a6355e8351cb70809af3820ac0ba09210}
+
+
+funcion que maneja el gestor 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em shmid} & id memoria compartida \\
+\hline
+{\em num\+Caballos} & numero de caballos \\
+\hline
+{\em num\+Apostadores} & numero de apostadores \\
+\hline
+{\em ventanillas} & numero de ventanillas \\
+\hline
+{\em caballos} & array de caballos \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!gestor@{gestor}}
+\index{gestor@{gestor}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{gestor(int shmid, int num\+Caballos, int num\+Apostadores, int ventanillas, carrera $\ast$caballos)}{gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, carrera *caballos)}}]{\setlength{\rightskip}{0pt plus 5cm}void gestor (
+\begin{DoxyParamCaption}
+\item[{int}]{shmid, }
+\item[{int}]{num\+Caballos, }
+\item[{int}]{num\+Apostadores, }
+\item[{int}]{ventanillas, }
+\item[{{\bf carrera} $\ast$}]{caballos}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_ad9e9a09017727a6af95e993c208850ca}{}\label{carrera_8c_ad9e9a09017727a6af95e993c208850ca}
+
+
+funcion que maneja el gestor 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em shmid} & id memoria compartida \\
+\hline
+{\em num\+Caballos} & numero de caballos \\
+\hline
+{\em num\+Apostadores} & numero de apostadores \\
+\hline
+{\em ventanillas} & numero de ventanillas \\
+\hline
+{\em caballos} & array de caballos \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!main@{main}}
+\index{main@{main}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}void main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a91a3bbcc7eb26e8695255b2795d6e46f}{}\label{carrera_8c_a91a3bbcc7eb26e8695255b2795d6e46f}
+
+
+funcion principal que llama a todas las auxiliares 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em argc} & contiene el número de parámetros totales pasados \\
+\hline
+{\em argv} & contiene los parámetros pasados por el usuario \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+int\+: valor de exito (OK) o fracaso (E\+R\+R\+OR) 
+\end{DoxyReturn}
+\index{carrera.\+c@{carrera.\+c}!pantalla@{pantalla}}
+\index{pantalla@{pantalla}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{pantalla(void $\ast$arg)}{pantalla(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ pantalla (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_ae7e84335952f7e2aed47abcb101eaab7}{}\label{carrera_8c_ae7e84335952f7e2aed47abcb101eaab7}
+
+
+funcion que se encarga del manejo del monitor 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em $\ast$arg} & estructura necesaria para el manejo del monitor\\
+\hline
+{\em arg} & estructura necesaria para el manejo del monitor \\
+\hline
+\end{DoxyParams}
+\index{carrera.\+c@{carrera.\+c}!ventanilla@{ventanilla}}
+\index{ventanilla@{ventanilla}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{ventanilla(void $\ast$datos)}{ventanilla(void *datos)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ ventanilla (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{datos}
+\end{DoxyParamCaption}
+)}\hypertarget{carrera_8c_a8bb83c437a2f9ee43d6c53832837513e}{}\label{carrera_8c_a8bb83c437a2f9ee43d6c53832837513e}
+
+
+funcion que se encarga del manejo de las ventanillas 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em $\ast$datos} & estructura necesaria para el manejo de las ventanillas \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Documentación de las variables}
+\index{carrera.\+c@{carrera.\+c}!estado@{estado}}
+\index{estado@{estado}!carrera.\+c@{carrera.\+c}}
+\subsubsection[{\texorpdfstring{estado}{estado}}]{\setlength{\rightskip}{0pt plus 5cm}int estado = -\/1}\hypertarget{carrera_8c_a876d08c1d21086e4fd228744da10d028}{}\label{carrera_8c_a876d08c1d21086e4fd228744da10d028}
+Estado de la carrera N\+O\+\_\+\+E\+M\+P\+E\+Z\+A\+DA 
