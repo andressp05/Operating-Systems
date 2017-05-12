@@ -48,7 +48,6 @@
 typedef struct _Mensaje{
 	long id; /*!<Tipo de mensaje*/
 	/*Informacion a transmitir en el mensaje*/
-	int valor; 
 	char aviso[MAXTAM];
 } mensaje;
 
@@ -92,7 +91,7 @@ int main(int argc, char* argv[]){
     }
 
     else {
-	destino = argv[2];
+	    destino = argv[2];
     }
 
     origen = argv[1];
@@ -114,7 +113,7 @@ int main(int argc, char* argv[]){
     /* Creacion de la cola de mensajes */
     msqid = msgget(key, IPC_CREAT | IPC_EXCL | SHM_R | SHM_W);
     if(msqid == -1){
-    	msqid = msgget(key, IPC_CREAT | SHM_R | SHM_W);
+    	msqid = msgget(key, SHM_R | SHM_W);
         if(msqid == -1){
             perror("Error al crear la cola de mensajes\n");
             free(buf);
@@ -159,12 +158,12 @@ int main(int argc, char* argv[]){
     		    }
     		    memset(msg.aviso, 0, sizeof(msg.aviso));
     			msg.id = 1; /*Tipo de mensaje*/
-				msg.valor= 0;
 				strcpy(msg.aviso, aux);
 				k = msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
 				memset(aux, 0, sizeof(aux));
 			}
     		fclose(fo);
+    		free(buf);
     		exit(EXIT_SUCCESS);
     	}
 
@@ -172,6 +171,7 @@ int main(int argc, char* argv[]){
     	else if(i == 1 && pid > 0){
     		if(msgctl(msqid, IPC_STAT, buf) == -1){
     			printf("Error obtener la estructuras de la cola de mensajes %d.\n", errno);
+    			free(buf);
         		msgctl (msqid, IPC_RMID, (struct msqid_ds *)NULL);
         		exit(EXIT_FAILURE);
     		}
@@ -188,6 +188,7 @@ int main(int argc, char* argv[]){
     			msg.id = 2;
     			msgsnd (msqid, (struct msgbuf *) &msg, sizeof(mensaje) - sizeof(long), IPC_NOWAIT);
     		}
+    		free(buf);
     		exit(EXIT_SUCCESS);
     	}
 

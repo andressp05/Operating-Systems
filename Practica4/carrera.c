@@ -11,6 +11,7 @@
 #include <pthread.h>
 #include <sys/msg.h>
 #include <errno.h>
+#include <time.h>
 
 #define LEER 0
 #define ESCRIBIR 1
@@ -20,11 +21,12 @@
 #define EMPEZADA 0
 #define FINALIZADA 1
 #define MAX 10
+#define TIEMPO 15
 
 /**
 * @brief Definicion de la clave
 */
-#define KEY 12
+#define KEY 13
 
 #define KEYSHM 14
 
@@ -105,6 +107,7 @@ void main(int argc, char* argv[]){
     int i, l;
     int j = 0;
     int k = -1;
+    int maxpos;
     int numCaballos;
     int longitud;
     int numApostadores;
@@ -152,18 +155,21 @@ void main(int argc, char* argv[]){
     padre_status = pipe(padre);
     if(padre_status == ERROR){
     	perror("Error creando la tubería\n");
+    	free(caballos);
     	exit(EXIT_FAILURE);
     }
 
     hijo_status = pipe(hijo);
     if(hijo_status == ERROR){
     	perror("Error creando la tubería\n");
+    	free(caballos);
     	exit(EXIT_FAILURE);
     }
 
     int key = ftok(FILEKEY, KEYSHM);
     if(key == ERROR){
         fprintf(stderr, "Error con la clave");
+        free(caballos);
         exit(EXIT_FAILURE);
     }
     
@@ -171,12 +177,15 @@ void main(int argc, char* argv[]){
     if(shmid == ERROR){
         if((shmid = shmget(key, sizeof(args), SHM_R | SHM_W)) == ERROR){
             fprintf(stderr, "Error al crear la zona de memoria compartida\n");
+            free(caballos);
             exit(EXIT_FAILURE);
         }
     }
 
     if((pid = fork()) == ERROR) {
         printf("Error al crear el gestor de apuestas\n");
+        free(caballos);
+        shmctl(shmid, IPC_RMID, NULL);
         exit(EXIT_FAILURE);
     }
     for(i = 0; i < numCaballos; i++){
@@ -185,6 +194,8 @@ void main(int argc, char* argv[]){
 
     if(pid == 0){
         gestor(shmid, numCaballos, numApostadores, ventanillas, caballos);
+        free(caballos);
+        exit(EXIT_SUCCESS);
     }
     screen.j = &j;
     screen.k = &k;
@@ -195,59 +206,75 @@ void main(int argc, char* argv[]){
     ret = pthread_create(&pant, NULL, pantalla, (void*) &screen);
     if(ret){
     	printf("Error al crear el hilo %d\n", i+1);
+    	free(caballos);
+        shmctl(shmid, IPC_RMID, NULL);
+        kill(pid, SIGUSR2);
+        wait(NULL);
     	exit(EXIT_FAILURE);
     }
-    sleep(10);
-    printf("LLEGA1");
-    kill(pid, SIGQUIT);
+    sleep(TIEMPO);
+    kill(pid, SIGUSR2);
     wait(NULL);
     estado = EMPEZADA;
-    printf("LLEGA2");
 
     if(signal(SIGUSR1, captura_SIGUSR1) == SIG_ERR){
         printf("Error en la señal SIGUSR1\n");
+        free(caballos);
+        shmctl(shmid, IPC_RMID, NULL);
         exit(EXIT_FAILURE);
     }
-    if(signal(SIGUSR2, captura_SIGUSR2) == SIG_ERR){
-        printf("Error al capturar la señal SIGUSR2\n");
+    
+    if(signal(SIGINT, captura_SIGINT) == SIG_ERR){
+        printf("Error en la señal SIGINT\n");
         exit(EXIT_FAILURE);
     }
+    
     for(l = 0; l < numCaballos; l++){
         if((caballos[l].pid = fork()) == ERROR){
             printf("Error al crear el caballo %d\n", j+1);
+            free(caballos);
+            shmctl(shmid, IPC_RMID, NULL);
+            for(j = 0; j < l; j++){
+                kill(caballos[j].pid, SIGKILL);
+                wait(NULL);
+            }
             exit(EXIT_FAILURE);
         }
         caballos[l].pos = 0;
         caballos[l].tirada = 0;
         if(caballos[l].pid == 0){
+            srand(getpid());
+            free(caballos);
             while(1){
                 pause();
-                srand(getpid());
-                char pos[3];
-                char tiro[3];
+                char pos[6];
+                char azar[3];
+                int tiro;
+                int maxpos;
                 int tirada;
                 memset(pos, 0, sizeof(pos));
-                memset(tiro, 0, sizeof(tiro));
+                memset(azar, 0, sizeof(azar));
                 close(padre[ESCRIBIR]);
                 read(padre[LEER], pos, sizeof(pos));
-                tirada = dado(atoi(pos), numCaballos);
-                fflush(stdout);
+                sscanf(pos, "%d/%d", &tiro, &maxpos);
+                tirada = dado(tiro, maxpos);
                 close(hijo[LEER]);
-                sprintf(tiro, "%d", tirada);
-                write(hijo[ESCRIBIR], tiro, strlen(tiro));
-                kill(getppid(), SIGUSR2);
+                sprintf(azar, "%d", tirada);
+                write(hijo[ESCRIBIR], azar, strlen(azar));
+                kill(getppid(), SIGUSR1);
             }
             exit(EXIT_SUCCESS);
         }
     }
+    maxpos = numCaballos;
     while(estado == EMPEZADA){
-        for(i = 0, j = 0; i < numCaballos; i++){
-            char pos[3];
+        for(i = 0; i < numCaballos; i++){
+            char pos[6];
             char tiro[3];
             int tirada;
             memset(pos, 0, sizeof(pos));
             close(padre[LEER]);
-            sprintf(pos, "%d", caballos[i].pos);
+            sprintf(pos, "%d/%d", caballos[i].pos, maxpos);
             write(padre[ESCRIBIR], pos, strlen(pos));
     		kill(caballos[i].pid, SIGUSR1);
     		pause();
@@ -259,20 +286,21 @@ void main(int argc, char* argv[]){
         }
         caballos[0].pos = 1;
         for(i = 0; i < numCaballos-1; i++){
-            for(j = i+1; j > 0; j--){
-                if(caballos[j].tirada > caballos[j-1].tirada){
-                    carrera aux = caballos[j];
-                    caballos[j] = caballos[j-1];
-                    caballos[j-1] = aux;
-                    caballos[j].pos++;
-                    caballos[j-1].pos = caballos[j].pos-1;
-                } else if(caballos[j].tirada == caballos[j-1].tirada){
-                    caballos[j].pos = caballos[j-1].pos;
+            for(l = i+1; l > 0; l--){
+                if(caballos[l].tirada > caballos[l-1].tirada){
+                    carrera aux = caballos[l];
+                    caballos[l] = caballos[l-1];
+                    caballos[l-1] = aux;
+                    caballos[l].pos++;
+                    caballos[l-1].pos = caballos[l].pos-1;
+                } else if(caballos[l].tirada == caballos[l-1].tirada){
+                    caballos[l].pos = caballos[l-1].pos;
                 } else {
-                    caballos[j].pos = caballos[j-1].pos+1;
+                    caballos[l].pos = l+1;
                 }
             }
         }
+        maxpos = caballos[numCaballos-1].pos;
         k++;
         while(j == k);
         if(caballos[0].tirada >= longitud){
@@ -287,10 +315,14 @@ void main(int argc, char* argv[]){
     }
     pthread_join(pant, NULL);
     pthread_cancel(pant);
+    shmctl(shmid, IPC_RMID, NULL);
+    free(caballos);
     exit(EXIT_SUCCESS);
 }
 
 void* pantalla(void* arg){
+    time_t ini, fin;
+    int ganado;
     int i, j, cont;
     args* aps;
     monitor* scr = (monitor*) arg;
@@ -300,10 +332,10 @@ void* pantalla(void* arg){
         exit(EXIT_FAILURE);
     }
     while(estado != EMPEZADA){
-        for(cont = 0; cont < 10; cont++){
-            /*printf("Han pasado %d segundos", cont);
-            fflush(stdout);*/
+        for(cont = 0; cont < TIEMPO; cont++){
             sleep(1);
+            printf("Han pasado %d segundos\n", cont+1);
+            fflush(stdout);
         }
         estado = EMPEZADA;
     }
@@ -312,17 +344,30 @@ void* pantalla(void* arg){
         fflush(stdout);
     }
     while(estado == EMPEZADA){
-        while(*scr->j != *scr->k);
         sleep(1);
+        ini = time(NULL);
+        while(*(scr->j) != *(scr->k) && estado == EMPEZADA){
+            fin = time(NULL);
+            if(fin-ini > 5){
+                kill(getpid(), SIGUSR1);
+            }
+        }
+        if(estado == FINALIZADA){
+            break;
+        }
         for(i = 0; i < scr->numCaballos; i++){
             printf("Caballo %d va en la posicion %d con %d distancia recorrida\n", scr->caballos[i].id, scr->caballos[i].pos, scr->caballos[i].tirada);
             fflush(stdout);
         }
-        (*scr->j)++;
+        (*(scr->j)) += 1;
     }
+    kill(getpid(), SIGUSR1);
     printf("CARRERA FINALIZADA:\n");
-    for(i = 0; i < 3; i++){
-        printf("Posicion %d: caballo %d con %d recorrido\n", i+1, scr->caballos[i].id, scr->caballos[i].tirada);
+    for(i = 0; i < scr->numCaballos; i++){
+        if(scr->caballos[i].pos > 3){
+            break;
+        }
+        printf("Posicion %d: caballo %d con %d recorrido\n", scr->caballos[i].pos, scr->caballos[i].id, scr->caballos[i].tirada);
         fflush(stdout);
     }
     
@@ -330,7 +375,8 @@ void* pantalla(void* arg){
         if(scr->caballos[i].pos == 1){
             for(j = 0; j < scr->numApostadores; j++){
                 if(aps->apostadores[i][j] > 0){
-                    printf("Apostador-%d ha ganado %lf euros\n", j+1, aps->apostadores[i][j]);
+                    ganado = aps->apostadores[i][j];
+                    printf("Apostador-%d ha ganado %.2lf euros\n", j+1, aps->apostadores[i][j]);
                     fflush(stdout);
                 }
             }
@@ -338,38 +384,40 @@ void* pantalla(void* arg){
             break;
         }
     }
+    printf("Beneficios: %.2lf\n", aps->total-ganado);
+    shmdt((char*) aps);
+    return NULL;
 }
 
 void* ventanilla(void* datos){
     args* arg = (args*) datos; 
-    double total = arg->total;
     int numBet;
     int msgid = arg->msgid;
     int semid = arg->semid;
     apuesta amsg;
     struct sembuf sem_oper_cab, sem_oper_bet, sem_oper_tot;
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
     while(arg->estado != EMPEZADA){
         msgrcv(msgid, (struct msgbuf *) &amsg, sizeof(apuesta) - sizeof(long), 1, 0);
         if(amsg.numCaballo > arg->numCaballos || amsg.numCaballo < 0)
             continue;
+        numBet = amsg.nombre[strlen(amsg.nombre)-1] - '0';
+        if(numBet == 0)
+            numBet = 10;
         sem_oper_cab.sem_num = amsg.numCaballo;
         sem_oper_cab.sem_op = -1;
         sem_oper_cab.sem_flg = 0;
         semop(semid, &sem_oper_cab, 1);
-        numBet = amsg.nombre[strlen(amsg.nombre)-1] - '0';
-        if(numBet == 0)
-            numBet = 10;
         sem_oper_bet.sem_num = numBet+arg->numCaballos-1;
         sem_oper_bet.sem_op = -1;
         sem_oper_bet.sem_flg = 0;
         semop(semid, &sem_oper_bet, 1);
         arg->apostadores[amsg.numCaballo-1][numBet-1] = amsg.cuantia*arg->jinetes[amsg.numCaballo-1].cotizacion;
-        arg->jinetes[amsg.numCaballo-1].totalapostado += amsg.cuantia; 
         sem_oper_tot.sem_num = 0;
         sem_oper_tot.sem_op = -1;
         sem_oper_tot.sem_flg = 0;
         semop(semid, &sem_oper_tot, 1);
-        arg->jinetes[amsg.numCaballo-1].cotizacion = total/arg->jinetes[amsg.numCaballo-1].totalapostado;
+        arg->total += amsg.cuantia;
         sem_oper_tot.sem_num = 0;
         sem_oper_tot.sem_op = 1;
         sem_oper_tot.sem_flg = 0;
@@ -378,6 +426,8 @@ void* ventanilla(void* datos){
         sem_oper_bet.sem_op = 1;
         sem_oper_bet.sem_flg = 0;
         semop(semid, &sem_oper_bet, 1);
+        arg->jinetes[amsg.numCaballo-1].totalapostado += amsg.cuantia; 
+        arg->jinetes[amsg.numCaballo-1].cotizacion = arg->total/arg->jinetes[amsg.numCaballo-1].totalapostado;
         sem_oper_cab.sem_num = amsg.numCaballo;
         sem_oper_cab.sem_op = 1;
         sem_oper_cab.sem_flg = 0;
@@ -392,7 +442,7 @@ void gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, car
 	int semid;
 	int ret;
     key_t key;
-    pthread_t h;
+    pthread_t h[MAX];
     int i,j;
     int sem_id; /* ID de la lista de semáforos */
     struct sembuf sem_oper; /* Para operaciones up y down sobre semáforos */
@@ -405,8 +455,8 @@ void gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, car
     apuesta amsg;
     args* aps;
 
-    if(signal(SIGQUIT, captura_SIGQUIT)){
-        printf("Error en la señal SIGQUIT\n");
+    if(signal(SIGUSR2, captura_SIGUSR2) == SIG_ERR){
+        printf("Error en la señal SIGUSR2\n");
         exit(EXIT_FAILURE);
     }
     
@@ -433,6 +483,7 @@ void gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, car
 	    semid = semget(SEMKEY, numsems, SHM_R|SHM_W);
 	    if(semid == ERROR){
 	    	perror("semget");
+	    	msgctl(msqid, IPC_RMID, NULL);
 	    	exit(errno);
 	    }
 	}
@@ -442,14 +493,19 @@ void gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, car
 	for(i = 0; i < numsems; i++){
 	    arg.array[i] = 1;
 	}
-	semctl (semid, numsems, SETALL, arg);
+	semctl(semid, numsems, SETALL, arg);
 
-    /*Inicializa los threads de las ventanillas*/
+    /* Une a la memoria compartida */
     aps = shmat(shmid, (char*)0, 0);
     if(aps == NULL){
         printf("Error en el gestor al unirse a la memoria compartida");
+        msgctl(msqid, IPC_RMID, NULL);
+	    semctl(semid, numsems, IPC_RMID, 0);
+	    free(arg.array);
         exit(EXIT_FAILURE);
     }
+    
+    /*Inicializa los threads de las ventanillas*/
     for (i=0; i < numCaballos; i++){
     	aps->jinetes[i].id = caballos[i].id;
     	aps->jinetes[i].totalapostado = 1.0;
@@ -466,29 +522,55 @@ void gestor(int shmid, int numCaballos, int numApostadores, int ventanillas, car
         }
     }
     for(i=0; i<ventanillas; i++){
-    	ret = pthread_create(&h, NULL, ventanilla, (void*) aps);
+    	ret = pthread_create(&h[i], NULL, ventanilla, (void*) aps);
     	
     	if(ret){
         	printf("Error al crear el hilo %d\n", i+1);
+        	aps->estado = EMPEZADA;
+	        for(j = 0; j<i; j++){
+                pthread_cancel(h[j]);
+                pthread_join(h[j], NULL);
+	        }
+        	msgctl(msqid, IPC_RMID, NULL);
+	        shmdt((char*) aps);
+	        semctl(semid, numsems, IPC_RMID, 0);
+	        free(arg.array);
         	exit(EXIT_FAILURE);
     	}
 	}
 	
 	if((pid = fork()) == ERROR){
         printf("Error al crear el apostador\n");
+        aps->estado = EMPEZADA;
+	    for(j = 0; j<ventanillas; j++){
+            pthread_cancel(h[j]);
+            pthread_join(h[j], NULL);
+	    }
+        msgctl(msqid, IPC_RMID, NULL);
+	    shmdt((char*) aps);
+	    semctl(semid, numsems, IPC_RMID, 0);
+	    free(arg.array);
+        exit(EXIT_FAILURE);
         exit(EXIT_FAILURE);
     }
     if(pid == 0){
         srand(getpid());
     	apostador(msqid, numCaballos, numApostadores);
     }
+
 	while(estado != EMPEZADA);
-	aps->estado = EMPEZADA;
     kill(pid, SIGKILL);
+    wait(NULL);
+    
+    aps->estado = EMPEZADA;
 	for(i = 0; i<ventanillas; i++){
-	    pthread_join(h,NULL);
-        pthread_cancel(h);
+        pthread_cancel(h[i]);
+        pthread_join(h[i], NULL);
 	}
+	msgctl(msqid, IPC_RMID, NULL);
+	shmdt((char*) aps);
+	semctl(semid, numsems, IPC_RMID, 0);
+	free(arg.array);
 }
 
 void apostador(int msqid, int numCaballos, int numApostadores){
@@ -498,6 +580,7 @@ void apostador(int msqid, int numCaballos, int numApostadores){
 	aleat = rand() % numApostadores+1;
 	apuesta msg;
 	while(estado != EMPEZADA){
+	    memset(msg.nombre, 0, sizeof(msg.nombre));
 	    msg.id = 1;
     	strcpy(msg.nombre, "APOSTADOR-");
     	sprintf(num, "%d", aleat);
@@ -535,11 +618,8 @@ void captura_SIGUSR1(int sig){
 }
 
 void captura_SIGUSR2(int sig){
-    return;
-}
-
-void captura_SIGQUIT(int sig){
     estado = EMPEZADA;
+    return;
 }
 
 void captura_SIGINT(int sig){
