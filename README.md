@@ -1,5 +1,4 @@
-# Soper
-Operating Systems Project:
+# Operating Systems Projects
 ## Project 1:
   1. Shell
   2. Processes
