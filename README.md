@@ -1,15 +1,15 @@
 # Soper
 Operating Systems Project:
 ## Project 1:
-  Shell
-  Processes
-  Pipes
+  1. Shell
+  2. Processes
+  3. Pipes
 ## Project 2:
-  Threads
-  Signals
+  4. Threads
+  5. Signals
 ## Project 3:
-  Shared Memory
-  Semaphore
+  6. Shared Memory
+  7. Semaphore
 ## Project 4:
-  Messages Queue
-  Final Project with all the topics before
+  8. Messages Queue
+  ⋅⋅* Final Project with all the topics before
