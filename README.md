@@ -11,4 +11,4 @@
   7. Semaphore
 ## Project 4:
   8. Messages Queue
-  ⋅⋅* Final Project with all the topics before
+  * Final Project with all the topics before
