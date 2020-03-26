@@ -1,0 +1,15 @@
+
+# Sources
+*.c     text diff=c
+
+# Compiled Object files
+*.o     binary
+*.obj   binary
+
+
+# Compiled Static libraries
+*.lib   binary
+
+# Executables
+*.exe   binary
+*.out   binary
